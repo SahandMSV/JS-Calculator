@@ -236,7 +236,7 @@ function btn_sqrt() {
         input = '√';
     }
 
-    // ends with a number [1-9]
+    // adds a radical before the last typed number ends with a number [1-9]
     else if (input.match(/[1-9]$/)) {
         let whole_number = '';
         let alreadyRadical = false;
@@ -256,10 +256,14 @@ function btn_sqrt() {
             if (alreadyRadical == false) {
                 input = input.slice(0, lastIndexOf_number) + '√' + whole_number;
             } else {
-                input = input.slice(0, lastIndexOf_number) + whole_number;
+                input = input.slice(0, lastIndexOf_number - 1) + whole_number;
             }
-        } else {
+
+            
+        } else if (input.includes('√') == false) {
             input = '√' + input;
+        } else if (input.includes(' ') == false && input.includes('√')) {
+                input = input.slice(1);
         }
     }
 
@@ -282,12 +286,40 @@ function btn_power() {
     document.getElementById('error_alert').value = '';
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    var inputElement = document.getElementById('disabledBtn1');
+    var tooltipContainer = document.getElementById('tooltip_container1');
+    inputElement.addEventListener('mouseover',
+    function() {
+        tooltipContainer.style.display = 'block';
+    });
+
+    inputElement.addEventListener('mouseout',
+    function() {
+        tooltipContainer.style.display = 'none';
+    });
+});
+
 function btn_percentage() {
     let input = document.getElementById('calculator_input').value;
     input += ')';
     document.getElementById('calculator_input').value = input;
     document.getElementById('error_alert').value = '';
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    var inputElement = document.getElementById('disabledBtn2');
+    var tooltipContainer = document.getElementById('tooltip_container2');
+    inputElement.addEventListener('mouseover',
+    function() {
+        tooltipContainer.style.display = 'block';
+    });
+
+    inputElement.addEventListener('mouseout',
+    function() {
+        tooltipContainer.style.display = 'none';
+    });
+});
 
 function btn_devide() {
     let input = document.getElementById('calculator_input').value;
@@ -401,10 +433,7 @@ function equalToBtn() {
     }
     
     // let Invalid_Syntax = false;
-    else if (equation.endsWith(' ÷ ') ||
-        equation.endsWith(' × ') ||
-        equation.endsWith(' + ') ||
-        equation.endsWith(' – ') ||
+    else if (equation.endsWith(' ') ||
         equation.includes('√')) {
         document.getElementById('calculator_input').value = oldVal;
         document.getElementById('error_alert').value = 'Invalid_Syntax';

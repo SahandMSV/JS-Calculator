@@ -97,15 +97,15 @@ body {
 }
 
 .del_button {
+    background-color: var(--main-color);
     transition: all 0.2s;
 }
 
-.del_button:hover {
-    background-color: var(--accent-color);
+.del_button:active:focus {
+    background-color: var(--main-color);
 }
 
-.del_button:active {
-    outline: none;
+.del_button:hover {
     background-color: var(--accent-color);
 }
 
@@ -146,12 +146,12 @@ body {
     transition: background-color 0.2s;
 }
 
-.copy_btn:active {
-    background-color: var(--accent-color);
+.copy_btn:active:focus {
+    outline: none;
+    background-color: var(--main-color);
 }
 
-.copy_btn:focus {
-    outline: none;
+.copy_btn:hover {
     background-color: var(--accent-color);
 }
 
@@ -189,11 +189,11 @@ body {
     cursor: pointer;
     border: none;
 }
-
+/*
 .del_button:focus {
     outline: none;
     background-color: var(--accent-color);
-}
+}*/
 
 .arrow_back_icon {
     width: 15px;
@@ -218,13 +218,47 @@ body {
     transition: all 0.2s;
 }
 
+.calculator_buttons input:active:focus {
+    outline: none;
+    background-color: var(--main-color);
+}
+
 .calculator_buttons input:hover {
     background-color: var(--accent-color);
 }
 
-.calculator_buttons input:focus {
-    outline: none;
-    background-color: var(--accent-color);
+.calculator_buttons input:disabled {
+    background-color: var(--main-color);
+}
+
+.tooltip_Parent > input {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+
+.tooltip_container1, .tooltip_container2 {
+    position: absolute;
+    transform: translate(25px, -50px);
+    display: none;
+}
+
+.disabledTooltip {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.4rem;
+    line-height: 0.55rem;
+
+    color: whitesmoke;
+    background-color: rgb(55, 55, 55);
+
+    padding: 3px;
+    border-radius: 5px 5px 5px 0;
+    text-align: center;
+}
+
+.tooltip_corner {
+    width: 3px;
+    transform: translateY(-10.5px);
 }
 
 /* a few font-size twiks */
@@ -234,7 +268,7 @@ body {
 .calculator_buttons :nth-child(19) { font-size: 1.3rem; } 
 
 /* round button corners */
-.calculator_buttons :nth-child(1) { border-radius: 7px 0 0 0; }
+div.calculator_buttons + input { border-radius: 7px 0 0 0; }
 .calculator_buttons :nth-child(4) { border-radius: 0 7px 0 0; }
 .calculator_buttons :nth-child(20) { border-radius: 0 0 7px 0; }
 .calculator_buttons :nth-child(17) { border-radius: 0 0 0 7px; }
