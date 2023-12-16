@@ -268,7 +268,7 @@ body {
 .calculator_buttons :nth-child(19) { font-size: 1.3rem; } 
 
 /* round button corners */
-div.calculator_buttons + input { border-radius: 7px 0 0 0; }
+.calculator_buttons > input:nth-child(1)  { border-radius: 7px 0 0 0; }
 .calculator_buttons :nth-child(4) { border-radius: 0 7px 0 0; }
 .calculator_buttons :nth-child(20) { border-radius: 0 0 7px 0; }
 .calculator_buttons :nth-child(17) { border-radius: 0 0 0 7px; }
