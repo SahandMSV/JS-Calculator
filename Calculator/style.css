@@ -145,7 +145,7 @@ body {
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.2s;
-    background-color: var(--main-color-0-8));
+    background-color: var(--main-color-0-8);
 }
 
 .copy_btn:active:focus {
