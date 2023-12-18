@@ -27,18 +27,18 @@ function btn_del() {
         input = 0;
     }
 
-    else if (input.endsWith(' ÷ ') == true ||
-            input.endsWith(' × ') == true ||
-            input.endsWith(' + ') == true ||
-            input.endsWith(' – ') == true) {
+    else if (input.endsWith(' ÷ ') ||
+            input.endsWith(' × ') ||
+            input.endsWith(' + ') ||
+            input.endsWith(' – ')) {
                 let oldVal = input;
                 input = oldVal.slice(0, -3);
     }
 
-    else if (input.endsWith('÷ √') == true ||
-            input.endsWith('× √') == true ||
-            input.endsWith('+ √') == true ||
-            input.endsWith('– √') == true) {
+    else if (input.endsWith('÷ √') ||
+            input.endsWith('× √') ||
+            input.endsWith('+ √') ||
+            input.endsWith('– √')) {
         let oldVal = input;
         input = oldVal.slice(0, -1);
     }
@@ -253,43 +253,48 @@ function btn_sqrt() {
         input = '√';
     }
 
-    // adds a radical before the last typed number ends with a number [1-9]
-    else if (input.match(/[1-9]$/) ||
-            input.match('²')) {
-        let whole_number = '';
+    // adds a radical before the last typed number that ends with a number [1-9]
+    else if (input.match(/[1-9]$/) || input.match('²')) {
+        let radicand = '';
         let alreadyRadical = false;
+
         if (input.includes(' ')) {
             for (let i = 1; i < input.length; i++) {
                 if (input.charAt(input.length - i) == '') {
                 alreadyRadical = true;
                 break;
                 }
-    
+                
                 if (input.charAt(input.length - i) == ' ') { break; }
-    
-                whole_number = input.charAt(input.length - i) + whole_number;
+                
+                radicand = input.charAt(input.length - i) + radicand;
             }
-            let lastIndexOf_number = input.lastIndexOf(whole_number);
-    
-            if (alreadyRadical == false) {
-                input = input.slice(0, lastIndexOf_number) + '√' + whole_number;
-            } else {
-                input = input.slice(0, lastIndexOf_number - 1) + whole_number;
-            }
-
             
-        } else if (input.includes('√') == false) {
+            let lastIndexOf_number = input.lastIndexOf(radicand);
+            
+            if (alreadyRadical == false) {
+                input = input.slice(0, lastIndexOf_number) + '√' + radicand;
+            }
+            
+            else {
+                input = input.slice(0, lastIndexOf_number - 1) + radicand;
+            }
+            
+        }
+        
+        else if (input.includes(' ') == false && input.includes('√')) {
+            input = input.slice(1);
+        }
+        
+        else if (input.includes('√') == false) {
             input = '√' + input;
-        } else if (input.includes(' ') == false && input.includes('√')) {
-                input = input.slice(1);
         }
     }
 
-    // ends with an operator
-    else if (input.endsWith(' ÷ ') == true ||
-            input.endsWith(' × ') == true ||
-            input.endsWith(' + ') == true ||
-            input.endsWith(' – ') == true) {
+    // ends with an operator (except ' – ')
+    else if (input.endsWith(' ÷ ') ||
+            input.endsWith(' × ') ||
+            input.endsWith(' + ')) {
         input += '√';
     }
 
@@ -379,9 +384,9 @@ function btn_plus() {
 function btn_minus() {
     let input = document.getElementById('calculator_input').value;
 
-        if (input == 0) {
-            input = '– ';
-        }
+    if (input == 0) {
+        input = '– ';
+    }
 
     else if (input.endsWith(' ÷ ') == false &&
         input.endsWith(' × ') == false &&
@@ -402,10 +407,11 @@ function btn_clear() {
 function equalToBtn() {
     let equation = document.getElementById('calculator_input').value;
     let oldVal = equation;
+    
     // makes input calculable (excpt for √)
     let equation_formatted = equation.replace(/×/g, '*').replace(/÷/g, '/').replace(/–/g, '-');
     equation = equation_formatted;
-
+    
     // calculates all the powers
     while (equation.includes('²')) {
         let exponent = equation.slice(
@@ -413,43 +419,39 @@ function equalToBtn() {
             equation.search('²') // index of the first power found
             ); // extracted number to be powered by 2
         equation = equation.replace(exponent + '²', Math.pow(exponent, 2)); // result
-        // unfinished
-    }
+    } // unfinished
     
     // calculates all the radicals
-    while (equation.includes('√')) {
-        if (equation.endsWith('√')) {
-            break;
-        }
+    while (equation.includes('√') && equation.endsWith('√') == false) {
         // the first radical found
         let radicalIndex = equation.search('√');
+        
         // the first whitespace after the first radical found
         let radicandEndIndex = equation.indexOf(' ', radicalIndex);
-
-        if (radicandEndIndex == -1) {
-            radicandEndIndex = equation.length;
-        }
-
+        if (radicandEndIndex == -1) { radicandEndIndex = equation.length; }
+        
         // radicand is the number insie the √
         let radicand = equation.slice(radicalIndex + 1, radicandEndIndex);
         // returns NaN if the radical negative or incalculable
         let result = Math.sqrt(radicand);
-        if (result.toString().includes('.') == true) {
+        
+        // floating point precision (cutted off)
+        if (result.toString().includes('.')) {
             let result_str = result.toString();
             result = parseFloat(result_str.substring(0, 5));
         }
         
         let calculatedRadical;
-        if (result !== NaN) {
+        if (result != NaN) {
             calculatedRadical = equation.replace('√' + radicand, result);
             equation = calculatedRadical;
         } else {
             equation = NaN;
         }
     }
-
+    
     let noResult = false;
-    if (equation == 'NaN' || equation.endsWith(' ') || equation.includes('√') ||
+    if (equation == NaN || equation.endsWith(' ') || equation.includes('√') ||
         oldVal == NaN) {
         noResult = true;
     }
