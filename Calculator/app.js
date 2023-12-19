@@ -62,13 +62,14 @@ function btn_del() {
 function btn_0() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input.endsWith('.') || input.endsWith('√') || input.endsWith(' ')) {
-        input += 0;
+    if (input[0] == 0 && input.length == 1) {
+        input = 0;
     }
 
-    // else if () {
-        
-    // }
+    else if (input.endsWith(' ') || input.endsWith('√') ||
+        input.endsWith('.') || input.match(/[0-9]$/)) {
+        input += 0;
+    }
 
     document.getElementById('calculator_input').value = input;
     document.getElementById('error_alert').value = '';
@@ -76,16 +77,16 @@ function btn_0() {
 
 function btn_1() {
     let input = document.getElementById('calculator_input').value;
-
-    if (input.endsWith(' ') || input.endsWith('√') ||
-        input.endsWith('.') || input.match(/[1-9]$/)) {
-        input += 1;
-    }
-
-    else if (input == 0) {
+    
+    if (input[0] == 0 && input.length == 1) {
         input = 1;
     }
-
+    
+    else if (input.endsWith(' ') || input.endsWith('√') ||
+        input.endsWith('.') || input.match(/[0-9]$/)) {
+        input += 1;
+    }
+    
     document.getElementById('calculator_input').value = input;
     document.getElementById('error_alert').value = '';
 }
@@ -93,13 +94,13 @@ function btn_1() {
 function btn_2() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input.endsWith(' ') || input.endsWith('√') ||
-        input.endsWith('.') || input.match(/[1-9]$/)) {
-        input += 2;
-    }
-
-    else if (input == 0) {
+    if (input[0] == 0 && input.length == 1) {
         input = 2;
+    }
+    
+    else if (input.endsWith(' ') || input.endsWith('√') ||
+        input.endsWith('.') || input.match(/[0-9]$/)) {
+        input += 2;
     }
 
     document.getElementById('calculator_input').value = input;
@@ -109,13 +110,13 @@ function btn_2() {
 function btn_3() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input.endsWith(' ') || input.endsWith('√') ||
-        input.endsWith('.') || input.match(/[1-9]$/)) {
-        input += 3;
-    }
-
-    else if (input == 0) {
+    if (input[0] == 0 && input.length == 1) {
         input = 3;
+    }
+    
+    else if (input.endsWith(' ') || input.endsWith('√') ||
+        input.endsWith('.') || input.match(/[0-9]$/)) {
+        input += 3;
     }
 
     document.getElementById('calculator_input').value = input;
@@ -125,13 +126,13 @@ function btn_3() {
 function btn_4() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input.endsWith(' ') || input.endsWith('√') ||
-        input.endsWith('.') || input.match(/[1-9]$/)) {
-        input += 4;
-    }
-
-    else if (input == 0) {
+    if (input[0] == 0 && input.length == 1) {
         input = 4;
+    }
+    
+    else if (input.endsWith(' ') || input.endsWith('√') ||
+        input.endsWith('.') || input.match(/[0-9]$/)) {
+        input += 4;
     }
 
     document.getElementById('calculator_input').value = input;
@@ -141,13 +142,13 @@ function btn_4() {
 function btn_5() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input.endsWith(' ') || input.endsWith('√') ||
-        input.endsWith('.') || input.match(/[1-9]$/)) {
-        input += 5;
-    }
-
-    else if (input == 0) {
+    if (input[0] == 0 && input.length == 1) {
         input = 5;
+    }
+    
+    else if (input.endsWith(' ') || input.endsWith('√') ||
+        input.endsWith('.') || input.match(/[0-9]$/)) {
+        input += 5;
     }
 
     document.getElementById('calculator_input').value = input;
@@ -157,13 +158,13 @@ function btn_5() {
 function btn_6() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input.endsWith(' ') || input.endsWith('√') ||
-        input.endsWith('.') || input.match(/[1-9]$/)) {
-        input += 6;
-    }
-
-    else if (input == 0) {
+    if (input[0] == 0 && input.length == 1) {
         input = 6;
+    }
+    
+    else if (input.endsWith(' ') || input.endsWith('√') ||
+        input.endsWith('.') || input.match(/[0-9]$/)) {
+        input += 6;
     }
 
     document.getElementById('calculator_input').value = input;
@@ -173,13 +174,13 @@ function btn_6() {
 function btn_7() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input.endsWith(' ') || input.endsWith('√') ||
-        input.endsWith('.') || input.match(/[1-9]$/)) {
-        input += 7;
-    }
-
-    else if (input == 0) {
+    if (input[0] == 0 && input.length == 1) {
         input = 7;
+    }
+    
+    else if (input.endsWith(' ') || input.endsWith('√') ||
+        input.endsWith('.') || input.match(/[0-9]$/)) {
+        input += 7;
     }
 
     document.getElementById('calculator_input').value = input;
@@ -189,13 +190,13 @@ function btn_7() {
 function btn_8() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input.endsWith(' ') || input.endsWith('√') ||
-        input.endsWith('.') || input.match(/[1-9]$/)) {
-        input += 8;
-    }
-
-    else if (input == 0) {
+    if (input[0] == 0 && input.length == 1) {
         input = 8;
+    }
+    
+    else if (input.endsWith(' ') || input.endsWith('√') ||
+        input.endsWith('.') || input.match(/[0-9]$/)) {
+        input += 8;
     }
 
     document.getElementById('calculator_input').value = input;
@@ -205,13 +206,13 @@ function btn_8() {
 function btn_9() {
     let input = document.getElementById('calculator_input').value;
     
-    if (input.endsWith(' ') || input.endsWith('√') ||
-        input.endsWith('.') || input.match(/[1-9]$/)) {
-        input += 9;
-    }
-
-    else if (input == 0) {
+    if (input[0] == 0 && input.length == 1) {
         input = 9;
+    }
+    
+    else if (input.endsWith(' ') || input.endsWith('√') ||
+        input.endsWith('.') || input.match(/[0-9]$/)) {
+        input += 9;
     }
 
     document.getElementById('calculator_input').value = input;
@@ -221,7 +222,12 @@ function btn_9() {
 function btn_dote() {
     let input = document.getElementById('calculator_input').value;
     let alreadyDecimal = false;
-    if (input.includes(' ')) {
+    
+    if (input.endsWith('.')) {
+        input = input.Substring(0, input.Length - 1)
+    }
+
+    else if (input.includes(' ')) {
         for (let i = 1; i < input.length; i++) {
             
             // check if the last typed number already contains a decimal
@@ -237,9 +243,13 @@ function btn_dote() {
         }
     }
     
-        if (input.endsWith('.') == false && alreadyDecimal == false) {
-            input += '.';
-        }
+    else if (input.includes(' ') == false && input.includes('.')) {
+        alreadyDecimal = true;
+    }
+    
+    if (input.endsWith('.') == false && alreadyDecimal == false) {
+        input += '.';
+    }
     
     document.getElementById('calculator_input').value = input;
     document.getElementById('error_alert').value = '';
@@ -253,33 +263,51 @@ function btn_sqrt() {
         input = '√';
     }
 
+    else if (input[0] == '√' && input.length != 1 && input.includes(' ') == false) {
+        input = input.slice(1);
+    }
+
     // adds a radical before the last typed number that ends with a number [1-9]
-    else if (input.match(/[1-9]$/) || input.match('²')) {
+    if (input.match(/[1-9]$/) || input.endsWith('²')) {
         let radicand = '';
         let alreadyRadical = false;
 
         if (input.includes(' ')) {
             for (let i = 1; i < input.length; i++) {
                 if (input.charAt(input.length - i) == '') {
-                alreadyRadical = true;
-                break;
+                    alreadyRadical = true;
+                    break;
                 }
                 
-                if (input.charAt(input.length - i) == ' ') { break; }
+                else if (input.charAt(input.length - i) == ' ')
+                {
+                    break;
+                }
                 
                 radicand = input.charAt(input.length - i) + radicand;
             }
             
             let lastIndexOf_number = input.lastIndexOf(radicand);
             
-            if (alreadyRadical == false) {
-                input = input.slice(0, lastIndexOf_number) + '√' + radicand;
-            }
-            
-            else {
+            if (alreadyRadical == false && input.endsWith('²')) {
                 input = input.slice(0, lastIndexOf_number - 1) + radicand;
+                alert(1)
             }
             
+            else if (alreadyRadical == false && input.endsWith('²') == false) {
+                input = input.slice(0, lastIndexOf_number - 1) + '√' + radicand;
+                alert(2)
+            }
+            
+            else if (alreadyRadical == true && input.endsWith('²')) {
+                
+                alert(2)
+            }
+            
+            else if (alreadyRadical == true && input.endsWith('²') == false) {
+                
+                alert(2)
+            }
         }
         
         else if (input.includes(' ') == false && input.includes('√')) {
