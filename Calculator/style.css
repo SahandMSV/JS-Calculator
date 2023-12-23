@@ -159,7 +159,6 @@ body {
 
 .copy_btn_img {
     width: 10px;
-    fill: black;
 }
 
 .copy_btn_img:hover {
@@ -259,10 +258,9 @@ body {
 }
 
 /* a few font-size twiks */
-.calculator_buttons :nth-child(4n) { font-size: 1.3rem; }
-.calculator_buttons :nth-child(4) { font-size: 1.4rem; }
-.calculator_buttons :nth-child(17) { font-size: 0.8rem; }
-.calculator_buttons :nth-child(19) { font-size: 1.3rem; } 
+.calculator_buttons :nth-child(4n) { font-size: 1.3rem; } /* operators */
+.calculator_buttons :nth-child(17) { font-size: 0.8rem; } /* clear button */
+.calculator_buttons :nth-child(19) { font-size: 1.3rem; } /* dote button */
 
 /* round button corners */
 .calculator_buttons > input:nth-child(1)  { border-radius: 7px 0 0 0; }
