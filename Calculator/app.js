@@ -226,7 +226,11 @@ function btn_dote() {
     if (input.endsWith('.')) {
         input = input.Substring(0, input.Length - 1)
     }
-
+    
+    else if (input.endsWith(' ') || input.endsWith('√')) {
+        input += '0.';
+    }
+    
     else if (input.includes(' ')) {
         for (let i = 1; i < input.length; i++) {
             
@@ -266,7 +270,7 @@ function btn_sqrt() {
     else if (input[0] == '√' && input.length != 1 && input.includes(' ') == false) {
         input = input.slice(1);
     }
-
+    /*
     // adds a radical before the last typed number that ends with a number [1-9]
     if (input.match(/[1-9]$/) || input.endsWith('²')) {
         let radicand = '';
@@ -276,6 +280,8 @@ function btn_sqrt() {
             for (let i = 1; i < input.length; i++) {
                 if (input.charAt(input.length - i) == '') {
                     alreadyRadical = true;
+                    alert(i);
+                    alert(input.charAt(input.length - i));
                     break;
                 }
                 
@@ -317,7 +323,7 @@ function btn_sqrt() {
         else if (input.includes('√') == false) {
             input = '√' + input;
         }
-    }
+    }*/
 
     // ends with an operator (except ' – ')
     else if (input.endsWith(' ÷ ') ||
@@ -343,26 +349,11 @@ function btn_power() {
     document.getElementById('error_alert').value = '';
 }
 
-function btn_percentage() {
+function btn_negation() {
     let input = document.getElementById('calculator_input').value;
-    input += ')';
+    input += ' (-';
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    var inputElement = document.getElementById('disabledBtn2');
-    var tooltipContainer = document.getElementById('tooltip_container2');
-    inputElement.addEventListener('mouseover',
-    function() {
-        tooltipContainer.style.display = 'block';
-    });
-
-    inputElement.addEventListener('mouseout',
-    function() {
-        tooltipContainer.style.display = 'none';
-    });
-});
 
 function btn_devide() {
     let input = document.getElementById('calculator_input').value;
@@ -413,7 +404,7 @@ function btn_minus() {
     let input = document.getElementById('calculator_input').value;
 
     if (input == 0) {
-        input = '– ';
+        input = '–';
     }
 
     else if (input.endsWith(' ÷ ') == false &&
@@ -446,8 +437,11 @@ function equalToBtn() {
             equation.lastIndexOf(' ', equation.search('²')) + 1, // index of the first number
             equation.search('²') // index of the first power found
             ); // extracted number to be powered by 2
+            if (exponent[0] == '√') {
+                exponent = exponent.substring(1);
+            }
         equation = equation.replace(exponent + '²', Math.pow(exponent, 2)); // result
-    } // unfinished
+    }
     
     // calculates all the radicals
     while (equation.includes('√') && equation.endsWith('√') == false) {
