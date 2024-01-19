@@ -1,4 +1,4 @@
-function error_alert_reset () {
+function error_alert_reset() {
     document.getElementById('error_alert').value = '';
 }
 
@@ -27,8 +27,12 @@ function btn_del() {
         input = 0;
     }
 
-    else if (input.length == 1) {
+    else if (input.length == 1 || (input.endsWith('(-') && input.length == 2)) {
         input = 0;
+    }
+
+    else if (input.endsWith('(-')) {
+        input = oldVal.slice(0, -2);
     }
 
     else if (input.endsWith(' ÷ ') ||
@@ -60,7 +64,7 @@ function btn_del() {
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
 function btn_0() {
@@ -76,7 +80,7 @@ function btn_0() {
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 } // unfinished
 
 function btn_1() {
@@ -86,13 +90,13 @@ function btn_1() {
         input = 1;
     }
 
-    else if (input.endsWith(' ') || input.endsWith('√') ||
+    else if (input.endsWith(' ') || input.endsWith('√') || input.endsWith('-') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 1;
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
 function btn_2() {
@@ -102,13 +106,13 @@ function btn_2() {
         input = 2;
     }
 
-    else if (input.endsWith(' ') || input.endsWith('√') ||
+    else if (input.endsWith(' ') || input.endsWith('√') || input.endsWith('-') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 2;
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
 function btn_3() {
@@ -118,13 +122,13 @@ function btn_3() {
         input = 3;
     }
 
-    else if (input.endsWith(' ') || input.endsWith('√') ||
+    else if (input.endsWith(' ') || input.endsWith('√') || input.endsWith('-') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 3;
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
 function btn_4() {
@@ -134,13 +138,13 @@ function btn_4() {
         input = 4;
     }
 
-    else if (input.endsWith(' ') || input.endsWith('√') ||
+    else if (input.endsWith(' ') || input.endsWith('√') || input.endsWith('-') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 4;
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
 function btn_5() {
@@ -150,13 +154,13 @@ function btn_5() {
         input = 5;
     }
 
-    else if (input.endsWith(' ') || input.endsWith('√') ||
+    else if (input.endsWith(' ') || input.endsWith('√') || input.endsWith('-') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 5;
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
 function btn_6() {
@@ -166,13 +170,13 @@ function btn_6() {
         input = 6;
     }
 
-    else if (input.endsWith(' ') || input.endsWith('√') ||
+    else if (input.endsWith(' ') || input.endsWith('√') || input.endsWith('-') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 6;
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
 function btn_7() {
@@ -182,13 +186,13 @@ function btn_7() {
         input = 7;
     }
 
-    else if (input.endsWith(' ') || input.endsWith('√') ||
+    else if (input.endsWith(' ') || input.endsWith('√') || input.endsWith('-') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 7;
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
 function btn_8() {
@@ -198,13 +202,13 @@ function btn_8() {
         input = 8;
     }
 
-    else if (input.endsWith(' ') || input.endsWith('√') ||
+    else if (input.endsWith(' ') || input.endsWith('√') || input.endsWith('-') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 8;
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
 function btn_9() {
@@ -214,13 +218,13 @@ function btn_9() {
         input = 9;
     }
 
-    else if (input.endsWith(' ') || input.endsWith('√') ||
+    else if (input.endsWith(' ') || input.endsWith('√') || input.endsWith('-') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 9;
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
 function btn_dote() {
@@ -260,7 +264,7 @@ function btn_dote() {
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
 function btn_sqrt() {
@@ -315,14 +319,14 @@ function btn_sqrt() {
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
 function btn_power() {
     let input = document.getElementById('calculator_input').value;
 
     if (input.endsWith('²')) {
-        input = input.slice(0, -1) ;
+        input = input.slice(0, -1);
     }
 
     else if (input.endsWith(' ') == false &&
@@ -330,69 +334,43 @@ function btn_power() {
         input += '²';
     }
 
+    else if (parenthesisOpen == true) {
+        input += ')²';
+        parenthesisOpen = false;
+    }
+
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
+let parenthesisOpen = false;
 function btn_negation() {
     let input = document.getElementById('calculator_input').value;
-    input += ' (-';
+
+    if (input == 0) {
+        input = '(-';
+    parenthesisOpen = true;
+    }
+
+    else if (input.match(/[0-9]$/) && parenthesisOpen == false) {
+        input += ')';
+    parenthesisOpen = false;
+    }
+
+    else if (input.endsWith(' ') || input.endsWith('√')) {
+        input += '(-';
+    parenthesisOpen = true;
+    }
+
     document.getElementById('calculator_input').value = input;
+    error_alert_reset()
 }
 
 function btn_devide() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input.endsWith(' ÷ ') == false &&
-        input.endsWith(' × ') == false &&
-        input.endsWith(' + ') == false &&
-        input.endsWith(' – ') == false &&
-        input.endsWith('√') == false &&
-        input.endsWith('.') == false) {
-        input += ' ÷ ';
-    }
-
-    document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
-}
-
-function btn_multiply() {
-    let input = document.getElementById('calculator_input').value;
-
-    if (input.endsWith(' ÷ ') == false &&
-        input.endsWith(' × ') == false &&
-        input.endsWith(' + ') == false &&
-        input.endsWith(' – ') == false &&
-        input.endsWith('√') == false &&
-        input.endsWith('.') == false) {
-        input += ' × ';
-    }
-
-    document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
-}
-
-function btn_plus() {
-    let input = document.getElementById('calculator_input').value;
-
-    if (input.endsWith(' ÷ ') == false &&
-        input.endsWith(' × ') == false &&
-        input.endsWith(' + ') == false &&
-        input.endsWith(' – ') == false &&
-        input.endsWith('√') == false &&
-        input.endsWith('.') == false) {
-        input += ' + ';
-    }
-
-    document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
-}
-
-function btn_minus() {
-    let input = document.getElementById('calculator_input').value;
-
     if (input == 0) {
-        input = '–';
+        input += ' ÷ ';
     }
 
     else if (input.endsWith(' ÷ ') == false &&
@@ -401,16 +379,96 @@ function btn_minus() {
         input.endsWith(' – ') == false &&
         input.endsWith('√') == false &&
         input.endsWith('.') == false) {
-        input += ' – ';
+        if (parenthesisOpen == false) {
+            input += ' ÷ ';
+        } else {
+            input += ') ÷ ';
+            parenthesisOpen = false;
+        }
     }
 
     document.getElementById('calculator_input').value = input;
-    error_alert_reset ()
+    error_alert_reset()
+}
+
+function btn_multiply() {
+    let input = document.getElementById('calculator_input').value;
+
+    if (input == 0) {
+        input += ' × ';
+    }
+
+    else if (input.endsWith(' ÷ ') == false &&
+        input.endsWith(' × ') == false &&
+        input.endsWith(' + ') == false &&
+        input.endsWith(' – ') == false &&
+        input.endsWith('√') == false &&
+        input.endsWith('.') == false) {
+        if (parenthesisOpen == false) {
+            input += ' × ';
+        } else {
+            input += ') × ';
+            parenthesisOpen = false;
+        }
+    }
+
+    document.getElementById('calculator_input').value = input;
+    error_alert_reset()
+}
+
+function btn_plus() {
+    let input = document.getElementById('calculator_input').value;
+
+    if (input == 0) {
+        input += ' + ';
+    }
+
+    else if (input.endsWith(' ÷ ') == false &&
+        input.endsWith(' × ') == false &&
+        input.endsWith(' + ') == false &&
+        input.endsWith(' – ') == false &&
+        input.endsWith('√') == false &&
+        input.endsWith('.') == false) {
+        if (parenthesisOpen = false) {
+            input += ' + ';
+        } else {
+            input += ') + ';
+            parenthesisOpen = false;
+        }
+    }
+
+    document.getElementById('calculator_input').value = input;
+    error_alert_reset()
+}
+
+function btn_minus() {
+    let input = document.getElementById('calculator_input').value;
+
+    if (input == 0) {
+        input += ' – ';
+    }
+
+    else if (input.endsWith(' ÷ ') == false &&
+        input.endsWith(' × ') == false &&
+        input.endsWith(' + ') == false &&
+        input.endsWith(' – ') == false &&
+        input.endsWith('√') == false &&
+        input.endsWith('.') == false) {
+        if (parenthesisOpen = false) {
+            input += ' – ';
+        } else {
+            input += ') – ';
+            parenthesisOpen = false;
+        }
+    }
+
+    document.getElementById('calculator_input').value = input;
+    error_alert_reset()
 }
 
 function btn_clear() {
     document.getElementById('calculator_input').value = 0;
-    error_alert_reset ()
+    error_alert_reset()
 }
 
 function equalToBtn() {
