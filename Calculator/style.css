@@ -118,10 +118,12 @@ body {
     margin-right: 3px;
     
     cursor: auto;
-    user-select: none;
     pointer-events:none;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
     
-    /* (some) default styls removed */
+    /* (some) default styles removed */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -130,12 +132,6 @@ body {
 }
 
 .copy_btn {
-    /* (some) default styls removed */
-    border: none;
-    padding: 0;
-    background: none;
-    cursor: pointer;
-    
     width: 25px;
     height: 25px;
     position: absolute;
@@ -144,6 +140,12 @@ body {
     cursor: pointer;
     transition: background-color 0.2s;
     background-color: var(--main-color-0-8);
+    
+    /* (some) default styles removed */
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
 }
 
 .copy_btn:active:focus {
@@ -169,7 +171,7 @@ body {
     background-color: var(--main-color);
     color: var(--gray-color);
     
-    /* (some) default styls removed */
+    /* (some) default styles removed */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;

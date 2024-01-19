@@ -321,8 +321,11 @@ function btn_sqrt() {
 function btn_power() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input.endsWith('²') == false &&
-        input.endsWith(' ') == false &&
+    if (input.endsWith('²')) {
+        input = input.slice(0, -1) ;
+    }
+
+    else if (input.endsWith(' ') == false &&
         input.endsWith('√') == false) {
         input += '²';
     }
