@@ -60,7 +60,7 @@ function btn_del() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_0() {
@@ -76,7 +76,7 @@ function btn_0() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 } // unfinished
 
 function btn_1() {
@@ -92,7 +92,7 @@ function btn_1() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_2() {
@@ -108,7 +108,7 @@ function btn_2() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_3() {
@@ -124,7 +124,7 @@ function btn_3() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_4() {
@@ -140,7 +140,7 @@ function btn_4() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_5() {
@@ -156,7 +156,7 @@ function btn_5() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_6() {
@@ -172,7 +172,7 @@ function btn_6() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_7() {
@@ -188,7 +188,7 @@ function btn_7() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_8() {
@@ -204,7 +204,7 @@ function btn_8() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_9() {
@@ -220,7 +220,7 @@ function btn_9() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_dote() {
@@ -260,7 +260,7 @@ function btn_dote() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_sqrt() {
@@ -315,7 +315,7 @@ function btn_sqrt() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_power() {
@@ -328,7 +328,7 @@ function btn_power() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_negation() {
@@ -350,7 +350,7 @@ function btn_devide() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_multiply() {
@@ -366,7 +366,7 @@ function btn_multiply() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_plus() {
@@ -382,7 +382,7 @@ function btn_plus() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_minus() {
@@ -402,12 +402,12 @@ function btn_minus() {
     }
 
     document.getElementById('calculator_input').value = input;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function btn_clear() {
     document.getElementById('calculator_input').value = 0;
-    document.getElementById('error_alert').value = '';
+    error_alert_reset ()
 }
 
 function equalToBtn() {

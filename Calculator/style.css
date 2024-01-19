@@ -161,11 +161,11 @@ body {
 
 .error_alert {
     position: absolute;
-    width: 180px;
-    height: 9px;
-    transform: translate(4px, 13px);
+    width: 328px;
+    height: 15px;
+    transform: translate(5px, 18px);
     
-    font-size: 0.4rem;
+    font-size: 0.75rem;
     background-color: var(--main-color);
     color: var(--gray-color);
     
