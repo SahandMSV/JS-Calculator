@@ -1,7 +1,11 @@
+function error_alert_reset () {
+    document.getElementById('error_alert').value = '';
+}
+
 function copyToClipboard() {
     let input = document.getElementById('calculator_input').value;
 
-    document.getElementById('copy_btn').addEventListener('click', function() {
+    document.getElementById('copy_btn').addEventListener('click', function () {
         copyFunction(input);
     });
 }
@@ -28,17 +32,17 @@ function btn_del() {
     }
 
     else if (input.endsWith(' ÷ ') ||
-            input.endsWith(' × ') ||
-            input.endsWith(' + ') ||
-            input.endsWith(' – ')) {
-                let oldVal = input;
-                input = oldVal.slice(0, -3);
+        input.endsWith(' × ') ||
+        input.endsWith(' + ') ||
+        input.endsWith(' – ')) {
+        let oldVal = input;
+        input = oldVal.slice(0, -3);
     }
 
     else if (input.endsWith('÷ √') ||
-            input.endsWith('× √') ||
-            input.endsWith('+ √') ||
-            input.endsWith('– √')) {
+        input.endsWith('× √') ||
+        input.endsWith('+ √') ||
+        input.endsWith('– √')) {
         let oldVal = input;
         input = oldVal.slice(0, -1);
     }
@@ -77,16 +81,16 @@ function btn_0() {
 
 function btn_1() {
     let input = document.getElementById('calculator_input').value;
-    
+
     if (input[0] == 0 && input.length == 1) {
         input = 1;
     }
-    
+
     else if (input.endsWith(' ') || input.endsWith('√') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 1;
     }
-    
+
     document.getElementById('calculator_input').value = input;
     document.getElementById('error_alert').value = '';
 }
@@ -97,7 +101,7 @@ function btn_2() {
     if (input[0] == 0 && input.length == 1) {
         input = 2;
     }
-    
+
     else if (input.endsWith(' ') || input.endsWith('√') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 2;
@@ -113,7 +117,7 @@ function btn_3() {
     if (input[0] == 0 && input.length == 1) {
         input = 3;
     }
-    
+
     else if (input.endsWith(' ') || input.endsWith('√') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 3;
@@ -129,7 +133,7 @@ function btn_4() {
     if (input[0] == 0 && input.length == 1) {
         input = 4;
     }
-    
+
     else if (input.endsWith(' ') || input.endsWith('√') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 4;
@@ -145,7 +149,7 @@ function btn_5() {
     if (input[0] == 0 && input.length == 1) {
         input = 5;
     }
-    
+
     else if (input.endsWith(' ') || input.endsWith('√') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 5;
@@ -161,7 +165,7 @@ function btn_6() {
     if (input[0] == 0 && input.length == 1) {
         input = 6;
     }
-    
+
     else if (input.endsWith(' ') || input.endsWith('√') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 6;
@@ -177,7 +181,7 @@ function btn_7() {
     if (input[0] == 0 && input.length == 1) {
         input = 7;
     }
-    
+
     else if (input.endsWith(' ') || input.endsWith('√') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 7;
@@ -193,7 +197,7 @@ function btn_8() {
     if (input[0] == 0 && input.length == 1) {
         input = 8;
     }
-    
+
     else if (input.endsWith(' ') || input.endsWith('√') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 8;
@@ -205,11 +209,11 @@ function btn_8() {
 
 function btn_9() {
     let input = document.getElementById('calculator_input').value;
-    
+
     if (input[0] == 0 && input.length == 1) {
         input = 9;
     }
-    
+
     else if (input.endsWith(' ') || input.endsWith('√') ||
         input.endsWith('.') || input.match(/[0-9]$/)) {
         input += 9;
@@ -222,39 +226,39 @@ function btn_9() {
 function btn_dote() {
     let input = document.getElementById('calculator_input').value;
     let alreadyDecimal = false;
-    
+
     if (input.endsWith('.')) {
         input = input.Substring(0, input.Length - 1)
     }
-    
+
     else if (input.endsWith(' ') || input.endsWith('√')) {
         input += '0.';
     }
-    
+
     else if (input.includes(' ')) {
         for (let i = 1; i < input.length; i++) {
-            
+
             // check if the last typed number already contains a decimal
             if (input.charAt(input.length - i) == '.') {
                 alreadyDecimal = true;
                 break;
             }
-            
+
             // or not
             if (input.charAt(input.length - i) == ' ') {
                 break;
             }
         }
     }
-    
+
     else if (input.includes(' ') == false && input.includes('.')) {
         alreadyDecimal = true;
     }
-    
+
     if (input.endsWith('.') == false && alreadyDecimal == false) {
         input += '.';
     }
-    
+
     document.getElementById('calculator_input').value = input;
     document.getElementById('error_alert').value = '';
 }
@@ -267,69 +271,47 @@ function btn_sqrt() {
         input = '√';
     }
 
+    else if (input.endsWith(' ÷ ') ||
+        input.endsWith(' × ') ||
+        input.endsWith(' + ') ||
+        input.endsWith(' – ')) {
+        input += '√';
+    }
+
     else if (input[0] == '√' && input.length != 1 && input.includes(' ') == false) {
         input = input.slice(1);
     }
-    /*
-    // adds a radical before the last typed number that ends with a number [1-9]
-    if (input.match(/[1-9]$/) || input.endsWith('²')) {
-        let radicand = '';
+
+    else if (input.match(/[1-9]$/) || input.endsWith("²")) {
+        let calculated = false;
         let alreadyRadical = false;
+        let seperated = input.split(" ");
+        if (seperated.at(-1).startsWith("√")) {
+            alreadyRadical = true;
+        } else {
+            alreadyRadical = false;
+        }
 
-        if (input.includes(' ')) {
-            for (let i = 1; i < input.length; i++) {
-                if (input.charAt(input.length - i) == '') {
-                    alreadyRadical = true;
-                    alert(i);
-                    alert(input.charAt(input.length - i));
-                    break;
-                }
-                
-                else if (input.charAt(input.length - i) == ' ')
-                {
-                    break;
-                }
-                
-                radicand = input.charAt(input.length - i) + radicand;
-            }
-            
-            let lastIndexOf_number = input.lastIndexOf(radicand);
-            
-            if (alreadyRadical == false && input.endsWith('²')) {
-                input = input.slice(0, lastIndexOf_number - 1) + radicand;
-                alert(1)
-            }
-            
-            else if (alreadyRadical == false && input.endsWith('²') == false) {
-                input = input.slice(0, lastIndexOf_number - 1) + '√' + radicand;
-                alert(2)
-            }
-            
-            else if (alreadyRadical == true && input.endsWith('²')) {
-                
-                alert(2)
-            }
-            
-            else if (alreadyRadical == true && input.endsWith('²') == false) {
-                
-                alert(2)
-            }
+        if (input.endsWith("√")) {
+            input.substring(0, input.length - 1);
+            calculated = true;
         }
-        
-        else if (input.includes(' ') == false && input.includes('√')) {
-            input = input.slice(1);
-        }
-        
-        else if (input.includes('√') == false) {
-            input = '√' + input;
-        }
-    }*/
 
-    // ends with an operator (except ' – ')
-    else if (input.endsWith(' ÷ ') ||
-            input.endsWith(' × ') ||
-            input.endsWith(' + ')) {
-        input += '√';
+        else {
+            if (alreadyRadical == false) {
+                let lastElement = seperated.at(-1);
+                seperated.pop();
+                seperated.push("√" + lastElement);
+            } else {
+                let lastElement = seperated.at(-1);
+                seperated.pop();
+                seperated.push(lastElement.slice(1));
+            }
+        }
+
+        if (calculated == false) {
+            input = seperated.join(" ");
+        }
     }
 
     document.getElementById('calculator_input').value = input;
@@ -338,13 +320,13 @@ function btn_sqrt() {
 
 function btn_power() {
     let input = document.getElementById('calculator_input').value;
-    
+
     if (input.endsWith('²') == false &&
         input.endsWith(' ') == false &&
         input.endsWith('√') == false) {
         input += '²';
     }
-    
+
     document.getElementById('calculator_input').value = input;
     document.getElementById('error_alert').value = '';
 }
@@ -362,7 +344,8 @@ function btn_devide() {
         input.endsWith(' × ') == false &&
         input.endsWith(' + ') == false &&
         input.endsWith(' – ') == false &&
-        input.endsWith('√') == false) {
+        input.endsWith('√') == false &&
+        input.endsWith('.') == false) {
         input += ' ÷ ';
     }
 
@@ -377,7 +360,8 @@ function btn_multiply() {
         input.endsWith(' × ') == false &&
         input.endsWith(' + ') == false &&
         input.endsWith(' – ') == false &&
-        input.endsWith('√') == false) {
+        input.endsWith('√') == false &&
+        input.endsWith('.') == false) {
         input += ' × ';
     }
 
@@ -392,7 +376,8 @@ function btn_plus() {
         input.endsWith(' × ') == false &&
         input.endsWith(' + ') == false &&
         input.endsWith(' – ') == false &&
-        input.endsWith('√') == false) {
+        input.endsWith('√') == false &&
+        input.endsWith('.') == false) {
         input += ' + ';
     }
 
@@ -410,7 +395,9 @@ function btn_minus() {
     else if (input.endsWith(' ÷ ') == false &&
         input.endsWith(' × ') == false &&
         input.endsWith(' + ') == false &&
-        input.endsWith(' – ') == false) {
+        input.endsWith(' – ') == false &&
+        input.endsWith('√') == false &&
+        input.endsWith('.') == false) {
         input += ' – ';
     }
 
@@ -426,43 +413,43 @@ function btn_clear() {
 function equalToBtn() {
     let equation = document.getElementById('calculator_input').value;
     let oldVal = equation;
-    
+
     // makes input calculable (excpt for √)
     let equation_formatted = equation.replace(/×/g, '*').replace(/÷/g, '/').replace(/–/g, '-');
     equation = equation_formatted;
-    
+
     // calculates all the powers
     while (equation.includes('²')) {
         let exponent = equation.slice(
             equation.lastIndexOf(' ', equation.search('²')) + 1, // index of the first number
             equation.search('²') // index of the first power found
-            ); // extracted number to be powered by 2
-            if (exponent[0] == '√') {
-                exponent = exponent.substring(1);
-            }
+        ); // extracted number to be powered by 2
+        if (exponent[0] == '√') {
+            exponent = exponent.substring(1);
+        }
         equation = equation.replace(exponent + '²', Math.pow(exponent, 2)); // result
     }
-    
+
     // calculates all the radicals
     while (equation.includes('√') && equation.endsWith('√') == false) {
         // the first radical found
         let radicalIndex = equation.search('√');
-        
+
         // the first whitespace after the first radical found
         let radicandEndIndex = equation.indexOf(' ', radicalIndex);
         if (radicandEndIndex == -1) { radicandEndIndex = equation.length; }
-        
+
         // radicand is the number insie the √
         let radicand = equation.slice(radicalIndex + 1, radicandEndIndex);
         // returns NaN if the radical negative or incalculable
         let result = Math.sqrt(radicand);
-        
+
         // floating point precision (cutted off)
         if (result.toString().includes('.')) {
             let result_str = result.toString();
             result = parseFloat(result_str.substring(0, 5));
         }
-        
+
         let calculatedRadical;
         if (result != NaN) {
             calculatedRadical = equation.replace('√' + radicand, result);
@@ -471,19 +458,19 @@ function equalToBtn() {
             equation = NaN;
         }
     }
-    
+
     let noResult = false;
     if (equation == NaN || equation.endsWith(' ') || equation.includes('√') ||
         oldVal == NaN) {
         noResult = true;
     }
-    
+
     // let Invalid_Syntax = false;
     if (noResult == true) {
         document.getElementById('calculator_input').value = oldVal;
         document.getElementById('error_alert').value = 'Invalid_Syntax';
     }
-    
+
     else {
         equation = eval(equation);
         document.getElementById('calculator_input').value = equation;
