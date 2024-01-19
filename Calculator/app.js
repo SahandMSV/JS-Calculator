@@ -289,8 +289,8 @@ function btn_sqrt() {
     else if (input.match(/[1-9]$/) || input.endsWith("²")) {
         let calculated = false;
         let alreadyRadical = false;
-        let seperated = input.split(" ");
-        if (seperated.at(-1).startsWith("√")) {
+        let separated = input.split(" ");
+        if (separated.at(-1).startsWith("√")) {
             alreadyRadical = true;
         } else {
             alreadyRadical = false;
@@ -303,18 +303,18 @@ function btn_sqrt() {
 
         else {
             if (alreadyRadical == false) {
-                let lastElement = seperated.at(-1);
-                seperated.pop();
-                seperated.push("√" + lastElement);
+                let lastElement = separated.at(-1);
+                separated.pop();
+                separated.push("√" + lastElement);
             } else {
-                let lastElement = seperated.at(-1);
-                seperated.pop();
-                seperated.push(lastElement.slice(1));
+                let lastElement = separated.at(-1);
+                separated.pop();
+                separated.push(lastElement.slice(1));
             }
         }
 
         if (calculated == false) {
-            input = seperated.join(" ");
+            input = separated.join(" ");
         }
     }
 
@@ -349,17 +349,17 @@ function btn_negation() {
 
     if (input == 0) {
         input = '(-';
-    parenthesisOpen = true;
+        parenthesisOpen = true;
     }
 
-    else if (input.match(/[0-9]$/) && parenthesisOpen == false) {
+    else if (parenthesisOpen == true) {
         input += ')';
-    parenthesisOpen = false;
+        parenthesisOpen = false;
     }
 
     else if (input.endsWith(' ') || input.endsWith('√')) {
         input += '(-';
-    parenthesisOpen = true;
+        parenthesisOpen = true;
     }
 
     document.getElementById('calculator_input').value = input;
@@ -454,7 +454,7 @@ function btn_minus() {
         input.endsWith(' – ') == false &&
         input.endsWith('√') == false &&
         input.endsWith('.') == false) {
-        if (parenthesisOpen = false) {
+        if (parenthesisOpen == false) {
             input += ' – ';
         } else {
             input += ') – ';
@@ -472,67 +472,79 @@ function btn_clear() {
 }
 
 function equalToBtn() {
-    let equation = document.getElementById('calculator_input').value;
-    let oldVal = equation;
+    let equation_raw = document.getElementById('calculator_input').value;
+    let oldVal = equation_raw;
+    let invalid_Syntax = false;
 
-    // makes input calculable (excpt for √)
-    let equation_formatted = equation.replace(/×/g, '*').replace(/÷/g, '/').replace(/–/g, '-');
-    equation = equation_formatted;
+    // makes (some) operators calculable
+    let equation = equation_raw.replace(/×/g, '*').replace(/÷/g, '/').replace(/–/g, '-');
+
+    // syntax error check
+    if (equation.includes('NaN') || oldVal.includes('NaN') ||
+        equation.endsWith('√') || equation.endsWith('.') || equation.endsWith(' ')) {
+        invalid_Syntax = true;
+    }
 
     // calculates all the powers
-    while (equation.includes('²')) {
-        let exponent = equation.slice(
-            equation.lastIndexOf(' ', equation.search('²')) + 1, // index of the first number
-            equation.search('²') // index of the first power found
-        ); // extracted number to be powered by 2
-        if (exponent[0] == '√') {
-            exponent = exponent.substring(1);
+    if (equation.includes('²') && invalid_Syntax == false) {
+        let separated = equation.split(' ');
+        for (let i = 0; i < separated.length; i++) {
+            let element = separated.at(-i - 1);
+            
+            if (element.includes('÷') || element.includes('+') ||
+                element.includes('×') || element.includes('–')) {
+                continue;
+            }
+            
+            else if (element.endsWith('²')) {
+                if (element.startsWith('√')) {
+                    element = element.slice(1).slice(0, -1);
+                    separated[separated.length - i - 1] = element;
+                    continue;
+                }
+                element = element.slice(0, -1);
+                element = Math.pow(element, 2);
+                separated[separated.length - i - 1] = element;
+            }
         }
-        equation = equation.replace(exponent + '²', Math.pow(exponent, 2)); // result
+        
+        equation = separated.join(' ');
+        
+        if (equation.includes('NaN' && invalid_Syntax == false)) {
+            invalid_Syntax = true;
+        }
     }
 
     // calculates all the radicals
-    while (equation.includes('√') && equation.endsWith('√') == false) {
-        // the first radical found
-        let radicalIndex = equation.search('√');
-
-        // the first whitespace after the first radical found
-        let radicandEndIndex = equation.indexOf(' ', radicalIndex);
-        if (radicandEndIndex == -1) { radicandEndIndex = equation.length; }
-
-        // radicand is the number insie the √
-        let radicand = equation.slice(radicalIndex + 1, radicandEndIndex);
-        // returns NaN if the radical negative or incalculable
-        let result = Math.sqrt(radicand);
-
-        // floating point precision (cutted off)
-        if (result.toString().includes('.')) {
-            let result_str = result.toString();
-            result = parseFloat(result_str.substring(0, 5));
+    if (equation.includes('√') && Invalid_Syntax == false) {
+        let separated = equation.split(' ');
+        for (let i = 0; i < separated.length; i++) {
+            let element = separated.at(-i - 1);
+            
+            if (element.includes('÷') || element.includes('+') ||
+                element.includes('×') || element.includes('–')) {
+                continue;
+            }
+            
+            else if (element.endsWith('√')) {
+                element = element.slice(1);
+                console.log(element);
+                element = Math.sqrt(element);
+                separated[separated.length - i - 1] = element;
+            }
         }
-
-        let calculatedRadical;
-        if (result != NaN) {
-            calculatedRadical = equation.replace('√' + radicand, result);
-            equation = calculatedRadical;
-        } else {
-            equation = NaN;
+        
+        equation = separated.join(' ');
+        
+        if (equation.includes('NaN' && invalid_Syntax == false)) {
+            invalid_Syntax = true;
         }
-    }
+    } // incomplete
 
-    let noResult = false;
-    if (equation == NaN || equation.endsWith(' ') || equation.includes('√') ||
-        oldVal == NaN) {
-        noResult = true;
-    }
-
-    // let Invalid_Syntax = false;
-    if (noResult == true) {
+    if (invalid_Syntax == true) {
         document.getElementById('calculator_input').value = oldVal;
         document.getElementById('error_alert').value = 'Invalid_Syntax';
-    }
-
-    else {
+    } else {
         equation = eval(equation);
         document.getElementById('calculator_input').value = equation;
     }
