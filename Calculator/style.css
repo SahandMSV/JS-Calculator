@@ -97,7 +97,7 @@ body {
 .del_button {
     width: 10%;
     background-color: var(--main-color);
-    transition: all 0.2s;
+    transition: background-color 0.2s;
 }
 
 .del_button:active:focus {
@@ -207,6 +207,7 @@ body {
     cursor: pointer;
     transition: all 0.2s;
     font-size: 1.5rem;
+    background-color: var(--main-color);
 }
 
 .calculator_buttons input:active:focus {

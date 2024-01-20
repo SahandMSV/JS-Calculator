@@ -352,14 +352,14 @@ function btn_negation() {
         parenthesisOpen = true;
     }
 
-    else if (parenthesisOpen == true) {
-        input += ')';
-        parenthesisOpen = false;
-    }
-
-    else if (input.endsWith(' ') || input.endsWith('√')) {
+    else if ((input.endsWith(' ') || input.endsWith('√')) && parenthesisOpen == false) {
         input += '(-';
         parenthesisOpen = true;
+    }
+
+    else if (parenthesisOpen == true && input.endsWith('-') == false)  {
+        input += ')';
+        parenthesisOpen = false;
     }
 
     document.getElementById('calculator_input').value = input;
@@ -429,7 +429,7 @@ function btn_plus() {
         input.endsWith(' – ') == false &&
         input.endsWith('√') == false &&
         input.endsWith('.') == false) {
-        if (parenthesisOpen = false) {
+        if (parenthesisOpen == false) {
             input += ' + ';
         } else {
             input += ') + ';
@@ -480,7 +480,7 @@ function equalToBtn() {
     let equation = equation_raw.replace(/×/g, '*').replace(/÷/g, '/').replace(/–/g, '-');
 
     // syntax error check
-    if (equation.includes('NaN') || oldVal.includes('NaN') ||
+    if (equation.includes('NaN') || oldVal.includes('NaN') || parenthesisOpen == true ||
         equation.endsWith('√') || equation.endsWith('.') || equation.endsWith(' ')) {
         invalid_Syntax = true;
     }
@@ -516,30 +516,45 @@ function equalToBtn() {
     }
 
     // calculates all the radicals
-    if (equation.includes('√') && Invalid_Syntax == false) {
-        let separated = equation.split(' ');
-        for (let i = 0; i < separated.length; i++) {
-            let element = separated.at(-i - 1);
-            
-            if (element.includes('÷') || element.includes('+') ||
-                element.includes('×') || element.includes('–')) {
-                continue;
+    if (equation.includes('√') && invalid_Syntax == false) {
+        if (!equation.includes(' ')) {
+            equation = equation.slice(1);
+            equation = Math.sqrt(equation);
+        } else {
+            let separated = equation.split(' ');
+            for (let i = 0; i < separated.length; i++) {
+                let element = separated.at(-i - 1);
+                
+                if (element.includes('÷') || element.includes('+') ||
+                    element.includes('×') || element.includes('–')) {
+                    continue;
+                }
+                
+                else if (element.endsWith('√')) {
+                    element = element.slice(1);
+                    console.log(element);
+                    element = Math.sqrt(element);
+                    separated[separated.length - i - 1] = element;
+                }
             }
             
-            else if (element.endsWith('√')) {
-                element = element.slice(1);
-                console.log(element);
-                element = Math.sqrt(element);
-                separated[separated.length - i - 1] = element;
+            equation = separated.join(' ');
+            
+            if (equation.includes('NaN' && invalid_Syntax == false)) {
+                invalid_Syntax = true;
             }
         }
         
-        equation = separated.join(' ');
-        
-        if (equation.includes('NaN' && invalid_Syntax == false)) {
-            invalid_Syntax = true;
+        // floating point precision (cutted off)
+        let precision = 4;
+        if (equation.toString().includes('.') && invalid_Syntax == false) {
+            equation = equation.toString();
+            let indexOfDecimal = equation.indexOf('.');
+            equation = parseFloat(equation.substring(
+                0, precision + equation.slice(0, indexOfDecimal + 1).length
+            ));
         }
-    } // incomplete
+    }
 
     if (invalid_Syntax == true) {
         document.getElementById('calculator_input').value = oldVal;
