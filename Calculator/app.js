@@ -71,7 +71,7 @@ function btn_del() {
 function btn_0() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input[0] == 0 && input.length == 1) {
+    if (input == '0') {
         input = 0;
     }
 
@@ -87,7 +87,7 @@ function btn_0() {
 function btn_1() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input[0] == 0 && input.length == 1) {
+    if (input == '0') {
         input = 1;
     }
 
@@ -103,7 +103,7 @@ function btn_1() {
 function btn_2() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input[0] == 0 && input.length == 1) {
+    if (input == '0') {
         input = 2;
     }
 
@@ -119,7 +119,7 @@ function btn_2() {
 function btn_3() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input[0] == 0 && input.length == 1) {
+    if (input == '0') {
         input = 3;
     }
 
@@ -135,7 +135,7 @@ function btn_3() {
 function btn_4() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input[0] == 0 && input.length == 1) {
+    if (input == '0') {
         input = 4;
     }
 
@@ -151,7 +151,7 @@ function btn_4() {
 function btn_5() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input[0] == 0 && input.length == 1) {
+    if (input == '0') {
         input = 5;
     }
 
@@ -167,7 +167,7 @@ function btn_5() {
 function btn_6() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input[0] == 0 && input.length == 1) {
+    if (input == '0') {
         input = 6;
     }
 
@@ -183,7 +183,7 @@ function btn_6() {
 function btn_7() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input[0] == 0 && input.length == 1) {
+    if (input == '0') {
         input = 7;
     }
 
@@ -199,7 +199,7 @@ function btn_7() {
 function btn_8() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input[0] == 0 && input.length == 1) {
+    if (input == '0') {
         input = 8;
     }
 
@@ -215,7 +215,7 @@ function btn_8() {
 function btn_9() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input[0] == 0 && input.length == 1) {
+    if (input == '0') {
         input = 9;
     }
 
@@ -230,39 +230,24 @@ function btn_9() {
 
 function btn_dote() {
     let input = document.getElementById('calculator_input').value;
-    let alreadyDecimal = false;
+    let separated = input.split(' ');
+    let lastElement = separated.at(-1);
 
-    if (input.endsWith('.')) {
-        input = input.Substring(0, input.Length - 1)
+    if (input == '0') {
+        lastElement += '.';
     }
 
     else if (input.endsWith(' ') || input.endsWith('√')) {
-        input += '0.';
+        lastElement += '0.';
     }
 
-    else if (input.includes(' ')) {
-        for (let i = 1; i < input.length; i++) {
-
-            // check if the last typed number already contains a decimal
-            if (input.charAt(input.length - i) == '.') {
-                alreadyDecimal = true;
-                break;
-            }
-
-            // or not
-            if (input.charAt(input.length - i) == ' ') {
-                break;
-            }
-        }
+    else if (input.match(/[0-9]$/) && !input.endsWith('.') && !lastElement.includes('.')) {
+        lastElement += '.';
     }
 
-    else if (input.includes(' ') == false && input.includes('.')) {
-        alreadyDecimal = true;
-    }
-
-    if (input.endsWith('.') == false && alreadyDecimal == false) {
-        input += '.';
-    }
+    separated.pop();
+    separated.push(lastElement);
+    input = separated.join(' ');
 
     document.getElementById('calculator_input').value = input;
     error_alert_reset()
@@ -270,58 +255,42 @@ function btn_dote() {
 
 function btn_sqrt() {
     let input = document.getElementById('calculator_input').value;
+    let separated = input.split(' ');
+    let lastElement = separated.at(-1);
 
-    // ends with 0
-    if (input == 0) {
-        input = '√';
+    if (input == '0') {
+        lastElement = '√';
     }
 
-    else if (input.endsWith(' ÷ ') ||
-        input.endsWith(' × ') ||
-        input.endsWith(' + ') ||
-        input.endsWith(' – ')) {
-        input += '√';
+    else if ((input == '√' || input == '√(-') && !input.includes(' ')) {
+        lastElement = '0';
+        parenthesisOpen = false;
     }
 
-    else if (input[0] == '√' && input.length != 1 && input.includes(' ') == false) {
-        input = input.slice(1);
+    else if (lastElement.includes('÷') || lastElement.includes('×') ||
+            lastElement.includes('+') || lastElement.includes('–')) {
+        lastElement += '√';
     }
 
-    else if (input.match(/[1-9]$/) || input.endsWith("²")) {
-        let calculated = false;
-        let alreadyRadical = false;
-        let separated = input.split(" ");
-        if (separated.at(-1).startsWith("√")) {
-            alreadyRadical = true;
-        } else {
-            alreadyRadical = false;
-        }
-
-        if (input.endsWith("√")) {
-            input.substring(0, input.length - 1);
-            calculated = true;
-        }
-
-        else {
-            if (alreadyRadical == false) {
-                let lastElement = separated.at(-1);
-                separated.pop();
-                separated.push("√" + lastElement);
-            } else {
-                let lastElement = separated.at(-1);
-                separated.pop();
-                separated.push(lastElement.slice(1));
-            }
-        }
-
-        if (calculated == false) {
-            input = separated.join(" ");
-        }
+    else if (input.endsWith('√')) {
+        lastElement = lastElement.slice(0, -1);
     }
+
+    else if (lastElement.startsWith('√')) {
+        lastElement = lastElement.slice(1);
+    }
+
+    else {
+        lastElement = '√' + lastElement;
+    }
+
+    separated.pop();
+    separated.push(lastElement);
+    input = separated.join(' ');
 
     document.getElementById('calculator_input').value = input;
     error_alert_reset()
-} // not DRY
+}
 
 function btn_power() {
     let input = document.getElementById('calculator_input').value;
@@ -329,10 +298,8 @@ function btn_power() {
     if (input.endsWith('²')) {
         input = input.slice(0, -1);
     }
-    
-    else if (input.endsWith(' ') == false &&
-        input.endsWith('√') == false &&
-        input.endsWith('-') == false) {
+
+    else if (!input.endsWith(' ') && !input.endsWith('√') && !input.endsWith('-')) {
         input += '²';
     }
 
@@ -342,45 +309,62 @@ function btn_power() {
 
 function btn_negation() {
     let input = document.getElementById('calculator_input').value;
+    let separated = input.split(' ');
+    let lastElement = separated.at(-1);
 
-    if (input == 0) {
-        input = '(-';
+    if (input == '0') {
+        lastElement = '(-';
         parenthesisOpen = true;
     }
 
-    else if ((input.endsWith(' ') || input.endsWith('√')) && parenthesisOpen == false) {
-        input += '(-';
+    else if ((input.endsWith(' ') || input.endsWith('√')) && !parenthesisOpen) {
+        lastElement += '(-';
         parenthesisOpen = true;
     }
 
-    else if (parenthesisOpen == true && input.endsWith('-') == false)  {
-        input += ')';
-        parenthesisOpen = false;
+    else if (lastElement.endsWith('√(-')) {
+        lastElement = lastElement.slice(0, -2);
+    }
+
+    else if (lastElement.startsWith('√(-') && lastElement.endsWith(')')) {
+        lastElement = lastElement.slice(3, -1);
+        lastElement = '√' + lastElement;
+    }
+
+    else if (lastElement.startsWith('√(-') && lastElement.endsWith(')²')) {
+        lastElement = lastElement.slice(3, -2);
+        lastElement = '√' + lastElement + '²';
+    }
+
+    else if (lastElement.startsWith('√') && !parenthesisOpen) {
+        lastElement = lastElement.slice(1);
+        lastElement = '√(-' + lastElement + ')';
+    }
+
+    else if (lastElement.startsWith('-')) {
+        lastElement = '(' + lastElement + ')';
     }
 
     else if (input.endsWith(')')) {
-        let separated = input.split(" ");
-        let lastElement = separated.at(-1);
-        separated.pop();
-        separated.push(lastElement.slice(2, -1));
-        input = separated.join(" ");
+        lastElement = lastElement.slice(2, -1);
     }
 
-    else if (parenthesisOpen == false &&
-            input.endsWith('-') == false &&
-            input.endsWith(')') == false) {
-        let separated = input.split(" ");
-        let lastElement = separated.at(-1);
-        if (lastElement.endsWith('²') && lastElement.includes('(')) {
-            separated.pop();
-            separated.push(lastElement.slice(2, -2) + '²');
-            input = separated.join(" ");
-        } else {
-            separated.pop();
-            separated.push('(-' + lastElement + ')');
-            input = separated.join(" ");
-        }
+    else if (input.endsWith(')²')) {
+        lastElement = lastElement.slice(2, -2);
     }
+
+    else if (!lastElement.endsWith('-') && parenthesisOpen) {
+        lastElement += ')';
+        parenthesisOpen = false;
+    }
+
+    else if (!lastElement.endsWith('-')) {
+        lastElement = '(-' + lastElement + ')';
+    }
+
+    separated.pop();
+    separated.push(lastElement)
+    input = separated.join(' ')
 
     document.getElementById('calculator_input').value = input;
     error_alert_reset()
@@ -389,22 +373,30 @@ function btn_negation() {
 function btn_devide() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input == 0) {
+    if (input == '0') {
         input += ' ÷ ';
     }
 
-    else if (input.endsWith(' ÷ ') == false &&
-        input.endsWith(' × ') == false &&
-        input.endsWith(' + ') == false &&
-        input.endsWith(' – ') == false &&
-        input.endsWith('√') == false &&
-        input.endsWith('.') == false) {
-        if (parenthesisOpen == false) {
+    else if (!input.endsWith(' ÷ ') && !input.endsWith(' × ') && !input.endsWith(' + ') &&
+            !input.endsWith(' – ') && !input.endsWith('√') && !input.endsWith('.')) {
+        if (!parenthesisOpen && !input.endsWith('-')) {
             input += ' ÷ ';
-        } else {
+        }
+        
+        else if (parenthesisOpen && !input.endsWith('-')) {
             input += ') ÷ ';
             parenthesisOpen = false;
         }
+    }
+
+    else if (input.endsWith(' × ') || input.endsWith(' + ') || input.endsWith(' – ')) {
+        input = input.slice(0, -3);
+        input += ' ÷ ';
+    }
+
+    else if (input.endsWith('.')) {
+        input = input.slice(0, -1);
+        input += ' ÷ '
     }
 
     document.getElementById('calculator_input').value = input;
@@ -414,22 +406,30 @@ function btn_devide() {
 function btn_multiply() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input == 0) {
+    if (input == '0') {
         input += ' × ';
     }
 
-    else if (input.endsWith(' ÷ ') == false &&
-        input.endsWith(' × ') == false &&
-        input.endsWith(' + ') == false &&
-        input.endsWith(' – ') == false &&
-        input.endsWith('√') == false &&
-        input.endsWith('.') == false) {
-        if (parenthesisOpen == false) {
+    else if (!input.endsWith(' ÷ ') && !input.endsWith(' × ') && !input.endsWith(' + ') &&
+            !input.endsWith(' – ') && !input.endsWith('√') && !input.endsWith('.')) {
+        if (!parenthesisOpen && !input.endsWith('-')) {
             input += ' × ';
-        } else {
+        }
+        
+        else if (parenthesisOpen && !input.endsWith('-')) {
             input += ') × ';
             parenthesisOpen = false;
         }
+    }
+
+    else if (input.endsWith(' ÷ ') || input.endsWith(' + ') || input.endsWith(' – ')) {
+        input = input.slice(0, -3);
+        input += ' × ';
+    }
+
+    else if (input.endsWith('.')) {
+        input = input.slice(0, -1);
+        input += ' × ';
     }
 
     document.getElementById('calculator_input').value = input;
@@ -439,22 +439,30 @@ function btn_multiply() {
 function btn_plus() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input == 0) {
+    if (input == '0') {
         input += ' + ';
     }
 
-    else if (input.endsWith(' ÷ ') == false &&
-        input.endsWith(' × ') == false &&
-        input.endsWith(' + ') == false &&
-        input.endsWith(' – ') == false &&
-        input.endsWith('√') == false &&
-        input.endsWith('.') == false) {
-        if (parenthesisOpen == false) {
+    else if (!input.endsWith(' ÷ ') && !input.endsWith(' × ') && !input.endsWith(' + ') &&
+            !input.endsWith(' – ') && !input.endsWith('√') && !input.endsWith('.')) {
+        if (!parenthesisOpen && !input.endsWith('-')) {
             input += ' + ';
-        } else {
+        }
+        
+        else if (parenthesisOpen && !input.endsWith('-')) {
             input += ') + ';
             parenthesisOpen = false;
         }
+    }
+
+    else if (input.endsWith(' ÷ ') || input.endsWith(' × ') || input.endsWith(' – ')) {
+        input = input.slice(0, -3);
+        input += ' + ';
+    }
+
+    else if (input.endsWith('.')) {
+        input = input.slice(0, -1);
+        input += ' + '
     }
 
     document.getElementById('calculator_input').value = input;
@@ -464,22 +472,30 @@ function btn_plus() {
 function btn_minus() {
     let input = document.getElementById('calculator_input').value;
 
-    if (input == 0) {
+    if (input == '0') {
         input += ' – ';
     }
 
-    else if (input.endsWith(' ÷ ') == false &&
-        input.endsWith(' × ') == false &&
-        input.endsWith(' + ') == false &&
-        input.endsWith(' – ') == false &&
-        input.endsWith('√') == false &&
-        input.endsWith('.') == false) {
-        if (parenthesisOpen == false) {
+    else if (!input.endsWith(' ÷ ') && !input.endsWith(' × ') && !input.endsWith(' + ') &&
+            !input.endsWith(' – ') && !input.endsWith('√') && !input.endsWith('.')) {
+        if (!parenthesisOpen && !input.endsWith('-')) {
             input += ' – ';
-        } else {
+        }
+        
+        else if (parenthesisOpen && !input.endsWith('-')) {
             input += ') – ';
             parenthesisOpen = false;
         }
+    }
+
+    else if (input.endsWith(' ÷ ') || input.endsWith(' × ') || input.endsWith(' + ')) {
+        input = input.slice(0, -3);
+        input += ' – ';
+    }
+
+    else if (input.endsWith('.')) {
+        input = input.slice(0, -1);
+        input += ' – ';
     }
 
     document.getElementById('calculator_input').value = input;
@@ -501,59 +517,61 @@ function equalToBtn() {
     let equation = equation_raw.replace(/×/g, '*').replace(/÷/g, '/').replace(/–/g, '-');
 
     // syntax error check
-    if (equation.includes('NaN') || oldVal.includes('NaN') || parenthesisOpen == true ||
+    if (equation.includes('NaN') || oldVal.includes('NaN') || parenthesisOpen ||
         equation.endsWith('√') || equation.endsWith('.') || equation.endsWith(' ')) {
         invalid_Syntax = true;
-        parenthesisOpen = false;
     }
 
     // calculates all the powers
-    if (equation.includes('²') && invalid_Syntax == false) {
+    if (equation.includes('²') && !invalid_Syntax) {
         let separated = equation.split(' ');
         for (let i = 0; i < separated.length; i++) {
             let element = separated.at(-i - 1);
-            
+    
             if (element.includes('÷') || element.includes('+') ||
                 element.includes('×') || element.includes('–')) {
                 continue;
             }
-            
+    
             else if (element.startsWith('√') && element.endsWith('²')) {
                 element = element.slice(1, -1);
-                separated[separated.length - i - 1] = element;
             }
-            
+    
             else if (element.endsWith('²)')) {
                 element = element.slice(2, -2);
                 element = Math.pow(element, 2);
                 element = '-' + element;
-                separated[separated.length - i - 1] = element;
             }
-            
+    
             else if (element.endsWith('²)²')) {
                 element = element.slice(2, -3);
                 element = Math.pow(element, 2);
                 element = '-' + element;
                 element = Math.pow(element, 2);
-                separated[separated.length - i - 1] = element;
             }
-            
+    
             else if (element.endsWith(')²')) {
                 element = element.slice(2, -2);
                 element = Math.pow(element, 2);
-                separated[separated.length - i - 1] = element;
             }
+    
+            else {
+                element = element.slice(0, -1);
+                element = Math.pow(element, 2);
+            }
+    
+            separated[separated.length - i - 1] = element;
         }
-        
+    
         equation = separated.join(' ');
-        
-        if (equation.includes('NaN' && invalid_Syntax == false)) {
+    
+        if (equation.includes('NaN' && !invalid_Syntax)) {
             invalid_Syntax = true;
         }
     }
 
     // calculates all the radicals
-    if (equation.includes('√') && invalid_Syntax == false) {
+    if (equation.includes('√') && !invalid_Syntax) {
         if (!equation.includes(' ')) {
             equation = equation.slice(1);
             equation = Math.sqrt(equation);
@@ -577,14 +595,14 @@ function equalToBtn() {
             
             equation = separated.join(' ');
             
-            if (equation.includes('NaN' && invalid_Syntax == false)) {
+            if (equation.includes('NaN' && !invalid_Syntax)) {
                 invalid_Syntax = true;
             }
         }
         
         // floating point precision (cutted off)
         let precision = 4;
-        if (equation.toString().includes('.') && invalid_Syntax == false) {
+        if (equation.toString().includes('.') && !invalid_Syntax) {
             equation = equation.toString();
             let indexOfDecimal = equation.indexOf('.');
             equation = parseFloat(equation.substring(
@@ -593,7 +611,13 @@ function equalToBtn() {
         }
     }
 
-    if (invalid_Syntax == true) {
+    // 2nd syntax error check
+    if (equation.includes('NaN') || oldVal.includes('NaN') || equation == oldVal ||
+        equation.endsWith('√') || equation.endsWith('.') || equation.endsWith(' ')) {
+        invalid_Syntax = true;
+    }
+
+    if (invalid_Syntax && equation != '0') {
         document.getElementById('calculator_input').value = oldVal;
         document.getElementById('error_alert').value = 'Invalid_Syntax';
     } else {
