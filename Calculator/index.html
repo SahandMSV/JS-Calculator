@@ -10,48 +10,76 @@
 
     <div class="container">
         <div class="result">
-            <input class="result_textbox" type="text" value="0" id="calculator_input" readonly tabindex="999">
+            <input class="result_textbox" type="text" value="0" id="calculator_input" readonly>
             <input class="error_alert" type="text" id="error_alert" dir="rtl" readonly>
-            <button class="copy_btn" id="copy_btn" onclick="copyToClipboard()" tabindex="2">
-                <img class="copy_btn_img" src="copy_icon.svg" alt="Copy">
+            <button class="copy_btn" id="copy_btn" onclick="copyToClipboard()">
+                <svg class="copy_btn_img" viewBox="0 -960 960 960" alt="Copy">
+                    <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 
+                    23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 
+                    56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 
+                    0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/>
+                </svg>
             </button>
-            <button class="del_button" id="del_button" onclick="btn_del()" tabindex="3">
-                <img src="arrow_back_icon.svg" alt="del" class="arrow_back_icon">
+            <button class="del_button" id="del_button" onclick="btn_del()">
+                <svg class="arrow_back_icon" viewBox="0 -960 960 960" alt="del">
+                    <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
+                </svg>
             </button>
         </div>
         <div class="calculator_buttons">
-            <input type="button" value="√𝑥" onclick="btn_sqrt()" tabindex="17">
+            <input type="button" value="√𝑥" onclick="btn_sqrt()">
             
-            <input type="button" value="𝑥²" onclick="btn_power()" tabindex="18">
+            <input type="button" value="𝑥²" onclick="btn_power()">
             
-            <input type="button" value="+/-" onclick="btn_negation()" tabindex="19">
+            <input type="button" value="+/-" onclick="btn_negation()">
             
-            <input type="button" value="÷" onclick="btn_devide()" tabindex="20">
+            <input type="button" value="÷" onclick="btn_devide()">
             
-            <input type="button" value="7" onclick="btn_7()" tabindex="13">
-            <input type="button" value="8" onclick="btn_8()" tabindex="14">
-            <input type="button" value="9" onclick="btn_9()" tabindex="15">
+            <input type="button" value="7" onclick="btn_7()">
+            <input type="button" value="8" onclick="btn_8()">
+            <input type="button" value="9" onclick="btn_9()">
             
-            <input type="button" value="×" onclick="btn_multiply()" tabindex="21">
+            <input type="button" value="×" onclick="btn_multiply()">
             
-            <input type="button" value="4" onclick="btn_4()" tabindex="10">
-            <input type="button" value="5" onclick="btn_5()" tabindex="11">
-            <input type="button" value="6" onclick="btn_6()" tabindex="12">
+            <input type="button" value="4" onclick="btn_4()">
+            <input type="button" value="5" onclick="btn_5()">
+            <input type="button" value="6" onclick="btn_6()">
             
-            <input type="button" value="+" onclick="btn_plus()" tabindex="22">
+            <input type="button" value="+" onclick="btn_plus()">
             
-            <input type="button" value="1" onclick="btn_1()" tabindex="7">
-            <input type="button" value="2" onclick="btn_2()" tabindex="8">
-            <input type="button" value="3" onclick="btn_3()" tabindex="9">
+            <input type="button" value="1" onclick="btn_1()">
+            <input type="button" value="2" onclick="btn_2()">
+            <input type="button" value="3" onclick="btn_3()">
             
-            <input type="button" value="–" onclick="btn_minus()" tabindex="23">
+            <input type="button" value="–" onclick="btn_minus()">
             
-            <input type="button" value="Clear" onclick="btn_clear()" tabindex="4">
-            <input type="button" value="0" onclick="btn_0()" tabindex="5">
-            <input type="button" value="." onclick="btn_dote()" tabindex="6">
+            <input type="button" value="Clear" onclick="btn_clear()">
+            <input type="button" value="0" onclick="btn_0()">
+            <input type="button" value="." onclick="btn_dote()">
             
-            <input type="button" value="=" onclick="equalToBtn()" tabindex="0">
+            <input type="button" value="=" onclick="equalToBtn()">
         </div>
+    </div>
+
+    <div class="theme_toggle" onclick="theme_toggle()">
+        <svg width="30px" height="30px" class="theme_toggle_svg" viewBox="0 -1000 1000 1000">
+            <path id="dark_icon"
+            d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 
+            0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 
+            101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Zm0-80q88 
+            0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 
+            3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z"/>
+
+            <path id="light_icon"
+            d="M480-360q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 
+            85q0 50 35 85t85 35Zm0 80q-83 0-141.5-58.5T280-480q0-83 
+            58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 
+            141.5T480-280ZM200-440H40v-80h160v80Zm720 
+            0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 
+            720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 
+            496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 
+            96-56-52ZM154-212l101-97 55 53-97 101-59-57Zm326-268Z"/>
+        </svg>
     </div>
 
     <script src="app.js"></script>

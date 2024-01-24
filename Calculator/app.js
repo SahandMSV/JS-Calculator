@@ -1,4 +1,53 @@
 let parenthesisOpen = false;
+var r = document.querySelector(':root'); /* root */
+var rs = getComputedStyle(r); /* root styles */
+
+let body_color_light = rs.getPropertyValue('--body-color-light');
+let main_color_light = rs.getPropertyValue('--main-color-light');
+let main_color_light_0_8 = rs.getPropertyValue('--main-color-light-0-8');
+let hover_color_light = rs.getPropertyValue('--hover-color-light');
+let error_color_light = rs.getPropertyValue('--error-color-light');
+let font_color_light = rs.getPropertyValue('--font-color-light');
+let theme_toggle_light = rs.getPropertyValue('--theme-toggle-light');
+
+let body_color_dark = rs.getPropertyValue('--body-color-dark');
+let main_color_dark = rs.getPropertyValue('--main-color-dark');
+let main_color_dark_0_8 = rs.getPropertyValue('--main-color-dark-0-8');
+let hover_color_dark = rs.getPropertyValue('--hover-color-dark');
+let error_color_dark = rs.getPropertyValue('--error-color-dark');
+let font_color_dark = rs.getPropertyValue('--font-color-dark');
+let theme_toggle_dark = rs.getPropertyValue('--theme-toggle-dark');
+
+function theme_toggle () {
+    let bodyColor = window.getComputedStyle(document.querySelector('body')).
+    getPropertyValue('background-color');
+    let dark_icon = document.getElementById('dark_icon').style.fill;
+    let light_icon = document.getElementById('light_icon').style.fill;
+    if (bodyColor == body_color_dark || bodyColor == '') {
+        r.style.setProperty('--body-color', body_color_light);
+        r.style.setProperty('--main-color', main_color_light);
+        r.style.setProperty('--main-color-0-8', main_color_light_0_8);
+        r.style.setProperty('--hover-color', hover_color_light);
+        r.style.setProperty('--error-color', error_color_light);
+        r.style.setProperty('--font-color', font_color_light);
+        r.style.setProperty('--theme-toggle', theme_toggle_light);
+        light_icon = 'rgba(0, 0, 0, 0)';
+        dark_icon = 'rgba(255, 255, 255, .9)';
+    } else {
+        r.style.setProperty('--body-color', body_color_dark);
+        r.style.setProperty('--main-color', main_color_dark);
+        r.style.setProperty('--main-color-0-8', main_color_dark_0_8);
+        r.style.setProperty('--hover-color', hover_color_dark);
+        r.style.setProperty('--error-color', error_color_dark);
+        r.style.setProperty('--font-color', font_color_dark);
+        r.style.setProperty('--theme-toggle', theme_toggle_dark);
+        dark_icon = 'rgba(0, 0, 0, 0)';
+        light_icon = 'rgba(255, 255, 255, .9)';
+    }
+    document.getElementById('dark_icon').style.fill = dark_icon;
+    document.getElementById('light_icon').style.fill = light_icon;
+}
+
 function error_alert_reset() {
     document.getElementById('error_alert').value = '';
 }
@@ -333,7 +382,7 @@ function btn_negation() {
 
     else if (lastElement.startsWith('√(-') && lastElement.endsWith(')²')) {
         lastElement = lastElement.slice(3, -2);
-        lastElement = '√' + lastElement + '²';
+        lastElement = '√' + lastElement;
     }
 
     else if (lastElement.startsWith('√') && !parenthesisOpen) {
@@ -528,13 +577,23 @@ function equalToBtn() {
         for (let i = 0; i < separated.length; i++) {
             let element = separated.at(-i - 1);
     
-            if (element.includes('÷') || element.includes('+') ||
-                element.includes('×') || element.includes('–')) {
+            if (element == '/' || element == '+' ||
+                element == '*' || element == '-') {
                 continue;
+            }
+    
+            else if (element.startsWith('√') && element.endsWith('²)²')) {
+                element = element.slice(3, -3);
+                element = Math.pow(element, 2);
+                element = '-' + element;
             }
     
             else if (element.startsWith('√') && element.endsWith('²')) {
                 element = element.slice(1, -1);
+            }
+    
+            else if (element.startsWith('√') && element.endsWith('²)')) {
+                element = NaN;
             }
     
             else if (element.endsWith('²)')) {
@@ -571,51 +630,47 @@ function equalToBtn() {
     }
 
     // calculates all the radicals
-    if (equation.includes('√') && !invalid_Syntax) {
-        if (!equation.includes(' ')) {
-            equation = equation.slice(1);
-            equation = Math.sqrt(equation);
-        } else {
-            let separated = equation.split(' ');
-            for (let i = 0; i < separated.length; i++) {
-                let element = separated.at(-i - 1);
-                
-                if (element.includes('÷') || element.includes('+') ||
-                    element.includes('×') || element.includes('–')) {
-                    continue;
-                }
-                
-                else if (element.endsWith('√')) {
-                    element = element.slice(1);
-                    console.log(element);
-                    element = Math.sqrt(element);
-                    separated[separated.length - i - 1] = element;
-                }
-            }
-            
-            equation = separated.join(' ');
-            
-            if (equation.includes('NaN' && !invalid_Syntax)) {
-                invalid_Syntax = true;
+if (equation.includes('√') && !invalid_Syntax) {
+    if (!equation.includes(' ')) {
+        equation = equation.slice(1);
+        equation = Math.sqrt(equation);
+    } else {
+        let separated = equation.split(' ');
+        for (let i = 0; i < separated.length; i++) {
+            let element = separated.at(-i - 1);
+            if (element.startsWith('√')) {
+                element = element.slice(1);
+                element = Math.sqrt(element);
+                separated[separated.length - i - 1] = element;
             }
         }
-        
-        // floating point precision (cutted off)
-        let precision = 4;
-        if (equation.toString().includes('.') && !invalid_Syntax) {
-            equation = equation.toString();
-            let indexOfDecimal = equation.indexOf('.');
-            equation = parseFloat(equation.substring(
-                0, precision + equation.slice(0, indexOfDecimal + 1).length
-            ));
+        equation = separated.join(' ');
+
+        if (equation.includes('NaN' && !invalid_Syntax)) {
+            invalid_Syntax = true;
         }
     }
 
-    // 2nd syntax error check
-    if (equation.includes('NaN') || oldVal.includes('NaN') || equation == oldVal ||
-        equation.endsWith('√') || equation.endsWith('.') || equation.endsWith(' ')) {
-        invalid_Syntax = true;
+    alert(equation)
+
+    // floating point precision (cutted off)
+    let precision = 4;
+    if (equation.toString().includes('.') && !invalid_Syntax) {
+        let separated = equation.split(' ');
+        for (let i = 0; i < separated.length; i++) {
+            let element = separated.at(-i - 1);
+            if (element.includes('.')) {
+                let indexOfDecimal = element.indexOf('.');
+                element = element.toString();
+                element = parseFloat(element.slice(
+                    0, indexOfDecimal - element.length + precision + 1)
+                );
+                separated[separated.length - i - 1] = element;
+            }
+            equation = separated.join(' ');
+        }
     }
+}
 
     if (invalid_Syntax && equation != '0') {
         document.getElementById('calculator_input').value = oldVal;

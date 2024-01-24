@@ -54,11 +54,32 @@ table {
 /* My Code */
 
 :root {
-    --main-color: rgb(240, 240, 240);
-    --main-color-0-8: rgba(240, 240, 240, 0.8);
-    --accent-color: rgb(250, 250, 250);
-    --gray-color: rgb(130, 130, 130);
-    --font-color: rgb(0, 0, 0);
+    /* Interchangeable Custome Properties (JS theme_toggle() functio ) */
+    --body-color: rgb(255, 255, 255);
+    --main-color: rgb(222, 231, 235); /* Light Blue */
+    --main-color-0-8: rgba(222, 231, 235, 0.8); /* Copy btn */
+    --hover-color: rgb(189, 210, 218); /* Hover */
+    --error-color: rgba(0, 0, 0, 0.6); /* Error */
+    --font-color: rgb(0, 0, 0); /* Font */
+    --theme-toggle: rgb(90, 90, 90); /* Theme btn */
+
+    /* Light Theme Custome Properties */
+    --body-color-light: rgb(255, 255, 255);
+    --main-color-light: rgb(222, 231, 235); /* Light Blue */
+    --main-color-light-0-8: rgba(222, 231, 235, 0.8); /* Copy btn */
+    --hover-color-light: rgb(189, 210, 218); /* Hover */
+    --error-color-light: rgba(0, 0, 0, 0.6); /* Error */
+    --font-color-light: rgb(0, 0, 0); /* Font */
+    --theme-toggle-light: rgb(90, 90, 90); /* Theme btn */
+
+    /* Dark Theme Custome Properties */
+    --body-color-dark: rgb(48, 48, 48);
+    --main-color-dark: rgb(100, 115, 145); /* Light Blue */
+    --main-color-dark-0-8: rgba(100, 115, 145, 0.8); /* Copy Hover */
+    --hover-color-dark: rgb(85, 100, 130); /* Hover */
+    --error-color-dark: rgba(0, 0, 0, 0.8); /* Error */
+    --font-color-dark: rgb(10, 10, 10); /* Font */
+    --theme-toggle-dark: rgb(120, 120, 120); /* Theme btn */
 }
 
 * {
@@ -71,6 +92,10 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    min-width: 450px;
+    min-height: 550px;
+    background-color: var(--body-color);
+    transition: background-color 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .container {
@@ -84,6 +109,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    transition: border-color 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .result {
@@ -98,7 +124,7 @@ body {
 .del_button {
     width: 10%;
     background-color: var(--main-color);
-    transition: background-color 0.2s;
+    transition: background-color 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .del_button:active:focus {
@@ -106,7 +132,7 @@ body {
 }
 
 .del_button:hover {
-    background-color: var(--accent-color);
+    background-color: var(--hover-color);
 }
 
 .result_textbox {
@@ -117,6 +143,7 @@ body {
     background-color: var(--main-color);
     padding-left: 10px;
     margin-right: 3px;
+    color: var(--font-color);
     
     cursor: auto;
     pointer-events:none;
@@ -130,6 +157,7 @@ body {
     appearance: none;
     border: none;
     outline: none;
+    transition: background-color 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .copy_btn {
@@ -139,14 +167,14 @@ body {
     transform: translate(307px, -10px);
     border-radius: 50px;
     cursor: pointer;
-    transition: background-color 0.2s;
-    background-color: var(--main-color-0-8);
+    z-index: 2;
     
     /* (some) default styles removed */
     border: none;
     padding: 0;
     background: none;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .copy_btn:active:focus {
@@ -155,27 +183,29 @@ body {
 }
 
 .copy_btn:hover {
-    background-color: var(--accent-color);
+    background-color: var(--hover-color);
 }
 
-.copy_btn_img {
+svg.copy_btn_img {
     width: 17.5px;
+    height: 24px;
+    fill: var(--font-color);
 }
 
 .error_alert {
     position: absolute;
-    width: 328px;
+    width: 320px;
     height: 15px;
-    transform: translate(5px, 18px);
+    transform: translate(13px, 18px);
     
     font-size: 0.75rem;
-    background-color: var(--main-color);
-    color: var(--gray-color);
+    color: var(--error-color);
     
     /* (some) default styles removed */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    background: none;
     border: none;
     outline: none;
     cursor: default;
@@ -190,7 +220,9 @@ body {
 
 .arrow_back_icon {
     width: 20px;
+    height: 24px;
     transform: translateY(2px);
+    fill: var(--font-color);
 }
 
 .calculator_buttons {
@@ -206,9 +238,10 @@ body {
 .calculator_buttons input {
     border: none;
     cursor: pointer;
-    transition: all 0.2s;
     font-size: 1.5rem;
+    color: var(--font-color);
     background-color: var(--main-color);
+    transition: background-color 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .calculator_buttons input:active:focus {
@@ -217,7 +250,7 @@ body {
 }
 
 .calculator_buttons input:hover {
-    background-color: var(--accent-color);
+    background-color: var(--hover-color);
 }
 
 .calculator_buttons input:disabled {
@@ -264,3 +297,39 @@ body {
 .calculator_buttons :nth-child(4) { border-radius: 0 15px 0 0; }
 .calculator_buttons :nth-child(20) { border-radius: 0 0 15px 0; }
 .calculator_buttons :nth-child(17) { border-radius: 0 0 0 15px; }
+
+/* Dark Mode Toggle Button */
+
+.theme_toggle {
+    background-color: var(--theme-toggle);
+    position: absolute;
+    border-radius: 100%;
+    height: 45px;
+    width: 45px;
+    left: 10px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-radius 0.3s ease-in-out, 
+                background-color 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.theme_toggle_svg {
+    transform: translate(0.5px, -1px);
+}
+
+.theme_toggle:hover {
+    border-radius: 28%;
+}
+
+#dark_icon {
+    fill: rgba(255, 255, 255, 1);
+    transition: fill 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#light_icon {
+    fill: rgba(255, 255, 255, 0);
+    transition: fill 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
