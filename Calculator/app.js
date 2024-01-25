@@ -32,7 +32,7 @@ function theme_toggle () {
         r.style.setProperty('--font-color', font_color_light);
         r.style.setProperty('--theme-toggle', theme_toggle_light);
         light_icon = 'rgba(0, 0, 0, 0)';
-        dark_icon = 'rgba(255, 255, 255, .9)';
+        dark_icon = 'rgba(255, 255, 255, 0.85)';
     } else {
         r.style.setProperty('--body-color', body_color_dark);
         r.style.setProperty('--main-color', main_color_dark);
@@ -42,7 +42,7 @@ function theme_toggle () {
         r.style.setProperty('--font-color', font_color_dark);
         r.style.setProperty('--theme-toggle', theme_toggle_dark);
         dark_icon = 'rgba(0, 0, 0, 0)';
-        light_icon = 'rgba(255, 255, 255, .9)';
+        light_icon = 'rgba(255, 255, 255, 0.85)';
     }
     document.getElementById('dark_icon').style.fill = dark_icon;
     document.getElementById('light_icon').style.fill = light_icon;

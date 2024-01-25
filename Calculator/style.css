@@ -54,32 +54,35 @@ table {
 /* My Code */
 
 :root {
-    /* Interchangeable Custome Properties (JS theme_toggle() functio ) */
-    --body-color: rgb(255, 255, 255);
-    --main-color: rgb(222, 231, 235); /* Light Blue */
-    --main-color-0-8: rgba(222, 231, 235, 0.8); /* Copy btn */
-    --hover-color: rgb(189, 210, 218); /* Hover */
+    /* Interchangeable custom Properties (JS theme_toggle() function ) */
+    --body-color: rgb(235, 235, 235);
+    --main-color: rgb(190, 200, 220); /* Light Blue */
+    --main-color-0-8: rgba(190, 200, 220, 0.8); /* Copy btn */
+    --hover-color: rgb(168, 178, 204); /* Hover */
     --error-color: rgba(0, 0, 0, 0.6); /* Error */
     --font-color: rgb(0, 0, 0); /* Font */
-    --theme-toggle: rgb(90, 90, 90); /* Theme btn */
-
-    /* Light Theme Custome Properties */
-    --body-color-light: rgb(255, 255, 255);
-    --main-color-light: rgb(222, 231, 235); /* Light Blue */
-    --main-color-light-0-8: rgba(222, 231, 235, 0.8); /* Copy btn */
-    --hover-color-light: rgb(189, 210, 218); /* Hover */
+    --theme-toggle: rgb(178, 198, 223); /* Theme btn */
+    
+    /* Light Theme Custom Properties */
+    --body-color-light: rgb(235, 235, 235);
+    --main-color-light: rgb(190, 200, 220); /* Light Blue */
+    --main-color-light-0-8: rgba(190, 200, 220, 0.8); /* Copy btn */
+    --hover-color-light: rgb(168, 178, 204); /* Hover */
     --error-color-light: rgba(0, 0, 0, 0.6); /* Error */
     --font-color-light: rgb(0, 0, 0); /* Font */
-    --theme-toggle-light: rgb(90, 90, 90); /* Theme btn */
-
-    /* Dark Theme Custome Properties */
+    --theme-toggle-light: rgb(178, 198, 223); /* Theme btn */
+    
+    /* Dark Theme Custom Properties */
     --body-color-dark: rgb(48, 48, 48);
-    --main-color-dark: rgb(100, 115, 145); /* Light Blue */
+    --main-color-dark: rgb(111, 127, 160); /* Light Blue */
     --main-color-dark-0-8: rgba(100, 115, 145, 0.8); /* Copy Hover */
-    --hover-color-dark: rgb(85, 100, 130); /* Hover */
+    --hover-color-dark: rgb(96, 109, 136); /* Hover */
     --error-color-dark: rgba(0, 0, 0, 0.8); /* Error */
     --font-color-dark: rgb(10, 10, 10); /* Font */
-    --theme-toggle-dark: rgb(120, 120, 120); /* Theme btn */
+    --theme-toggle-dark: rgb(105, 117, 133); /* Theme btn */
+    
+    /* Animation Custom Properties */
+    --calculator-intro-properties: 0.7s ease-in-out 0.2s forwards;
 }
 
 * {
@@ -98,11 +101,19 @@ body {
     transition: background-color 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
+.container_border {
+    width: 400px;
+    height: 77px;
+    border-radius: 25px;
+    border: 6px solid var(--main-color);
+    position: absolute;
+    animation:  calculator_intro_opacity 0.45s ease-out forwards,
+                calculator_intro_border 0.6s ease-in-out 0.45s forwards;
+}
+
 .container {
     width: 400px;
-    padding: 6px;
-    
-    border: 6px solid var(--main-color);
+    padding: 12px;
     border-radius: 25px;
     
     display: flex;
@@ -110,6 +121,8 @@ body {
     justify-content: center;
     flex-direction: column;
     transition: border-color 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform: translateY(203px);
+    animation: calculator_intro_transfrom 0.6s ease-in-out 0.45s forwards;;
 }
 
 .result {
@@ -118,21 +131,8 @@ body {
     margin-bottom: 6px;
     
     display: flex;
-    align-items: center;  
-}
-
-.del_button {
-    width: 10%;
-    background-color: var(--main-color);
-    transition: background-color 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.del_button:active:focus {
-    background-color: var(--main-color);
-}
-
-.del_button:hover {
-    background-color: var(--hover-color);
+    align-items: center;
+    animation: calculator_intro_opacity 0.45s ease-out forwards;
 }
 
 .result_textbox {
@@ -158,6 +158,20 @@ body {
     border: none;
     outline: none;
     transition: background-color 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.del_button {
+    width: 10%;
+    background-color: var(--main-color);
+    transition: background-color 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.del_button:active:focus {
+    background-color: var(--main-color);
+}
+
+.del_button:hover {
+    background-color: var(--hover-color);
 }
 
 .copy_btn {
@@ -257,34 +271,26 @@ svg.copy_btn_img {
     background-color: var(--main-color);
 }
 
-.tooltip_Parent > input {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
+/* intro animation */
+.calculator_buttons :nth-child(-n+4) {
+    animation: calculator_intro_opacity 0.6s
+    cubic-bezier(0.22, 0.45, 0.40, 0.95) 0.7s forwards;
 }
-
-.tooltip_container1, .tooltip_container2 {
-    position: absolute;
-    transform: translate(25px, -50px);
-    display: none;
+.calculator_buttons :nth-child(n+5):nth-child(-n+8) {
+    animation: calculator_intro_opacity 0.6s
+    cubic-bezier(0.22, 0.45, 0.40, 0.95) 0.75s forwards;
 }
-
-.disabledTooltip {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.4rem;
-    line-height: 0.55rem;
-
-    color: whitesmoke;
-    background-color: rgb(55, 55, 55);
-
-    padding: 3px;
-    border-radius: 5px 5px 5px 0;
-    text-align: center;
+.calculator_buttons :nth-child(n+9):nth-child(-n+12) {
+    animation: calculator_intro_opacity 0.6s
+    cubic-bezier(0.22, 0.45, 0.40, 0.95) 0.8s forwards;
 }
-
-.tooltip_corner {
-    width: 3px;
-    transform: translateY(-10.5px);
+.calculator_buttons :nth-child(n+13):nth-child(-n+16) {
+    animation: calculator_intro_opacity 0.6s
+    cubic-bezier(0.22, 0.45, 0.40, 0.95) 0.85s forwards;
+}
+.calculator_buttons :nth-child(n+17):nth-child(-n+20) {
+    animation: calculator_intro_opacity 0.6s
+    cubic-bezier(0.22, 0.45, 0.40, 0.95) 0.9s forwards;
 }
 
 /* a few font-size twiks */
@@ -293,7 +299,7 @@ svg.copy_btn_img {
 .calculator_buttons :nth-child(19) { font-size: 1.6rem; } /* dote button */
 
 /* round button corners */
-.calculator_buttons > input:nth-child(1)  { border-radius: 15px 0 0 0; }
+.calculator_buttons :nth-child(1) { border-radius: 15px 0 0 0; }
 .calculator_buttons :nth-child(4) { border-radius: 0 15px 0 0; }
 .calculator_buttons :nth-child(20) { border-radius: 0 0 15px 0; }
 .calculator_buttons :nth-child(17) { border-radius: 0 0 0 15px; }
@@ -306,7 +312,7 @@ svg.copy_btn_img {
     border-radius: 100%;
     height: 45px;
     width: 45px;
-    left: 10px;
+    left: -60px;
     top: 10px;
     display: flex;
     align-items: center;
@@ -314,6 +320,15 @@ svg.copy_btn_img {
     cursor: pointer;
     transition: border-radius 0.3s ease-in-out, 
                 background-color 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: rgba(0, 0, 0, 0.14) 0px -23px 25px 0px inset,
+                rgba(0, 0, 0, 0.12) 0px -36px 30px 0px inset,
+                rgba(0, 0, 0, 0.075) 0px -79px 40px 0px inset,
+                rgba(0, 0, 0, 0.04) 0px 2px 1px,
+                rgba(0, 0, 0, 0.07) 0px 4px 2px,
+                rgba(0, 0, 0, 0.06) 0px 8px 4px,
+                rgba(0, 0, 0, 0.05) 0px 16px 8px,
+                rgba(0, 0, 0, 0.04) 0px 32px 16px;
+    animation: theme_toggle_intro 0.7s ease-in-out 0.2s forwards;
 }
 
 .theme_toggle_svg {
@@ -325,11 +340,36 @@ svg.copy_btn_img {
 }
 
 #dark_icon {
-    fill: rgba(255, 255, 255, 1);
+    fill: rgba(255, 255, 255, 0.85);
     transition: fill 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 #light_icon {
     fill: rgba(255, 255, 255, 0);
     transition: fill 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* calculator intro animation Preparation */
+.calculator_buttons input,
+.container_border, .result {
+    opacity: 0;
+}
+
+@keyframes calculator_intro_border {
+    from { height: 77px; }
+    to { height: 485px; }
+}
+
+@keyframes calculator_intro_opacity {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes calculator_intro_transfrom {
+    from { transform: translateY(203px); }
+    to { transform: translateY(0); }
+}
+
+@keyframes theme_toggle_intro {
+    from { left: -60px; } to { left: 10px; }
 }
