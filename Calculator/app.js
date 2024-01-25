@@ -373,6 +373,7 @@ function btn_negation() {
 
     else if (lastElement.endsWith('√(-')) {
         lastElement = lastElement.slice(0, -2);
+        parenthesisOpen = false;
     }
 
     else if (lastElement.startsWith('√(-') && lastElement.endsWith(')')) {
@@ -630,47 +631,45 @@ function equalToBtn() {
     }
 
     // calculates all the radicals
-if (equation.includes('√') && !invalid_Syntax) {
-    if (!equation.includes(' ')) {
-        equation = equation.slice(1);
-        equation = Math.sqrt(equation);
-    } else {
-        let separated = equation.split(' ');
-        for (let i = 0; i < separated.length; i++) {
-            let element = separated.at(-i - 1);
-            if (element.startsWith('√')) {
-                element = element.slice(1);
-                element = Math.sqrt(element);
-                separated[separated.length - i - 1] = element;
-            }
-        }
-        equation = separated.join(' ');
-
-        if (equation.includes('NaN' && !invalid_Syntax)) {
-            invalid_Syntax = true;
-        }
-    }
-
-    alert(equation)
-
-    // floating point precision (cutted off)
-    let precision = 4;
-    if (equation.toString().includes('.') && !invalid_Syntax) {
-        let separated = equation.split(' ');
-        for (let i = 0; i < separated.length; i++) {
-            let element = separated.at(-i - 1);
-            if (element.includes('.')) {
-                let indexOfDecimal = element.indexOf('.');
-                element = element.toString();
-                element = parseFloat(element.slice(
-                    0, indexOfDecimal - element.length + precision + 1)
-                );
-                separated[separated.length - i - 1] = element;
+    if (equation.includes('√') && !invalid_Syntax) {
+        if (!equation.includes(' ')) {
+            equation = equation.slice(1);
+            equation = Math.sqrt(equation);
+        } else {
+            let separated = equation.split(' ');
+            for (let i = 0; i < separated.length; i++) {
+                let element = separated.at(-i - 1);
+                if (element.startsWith('√')) {
+                    element = element.slice(1);
+                    element = Math.sqrt(element);
+                    separated[separated.length - i - 1] = element;
+                }
             }
             equation = separated.join(' ');
+            
+            if (equation.includes('NaN' && !invalid_Syntax)) {
+                invalid_Syntax = true;
+            }
         }
-    }
-}
+        
+        // floating point precision (sliced)
+        let precision = 4;
+        let separated = equation.toString().split(' ');
+        if (equation.toString().includes('.') && !invalid_Syntax) {
+            for (let i = 0; i < separated.length; i++) {
+                let element = separated.at(-i - 1);
+                if (element.includes('.')) {
+                    let indexOfDecimal = element.indexOf('.');
+                    element = element.toString();
+                    element = parseFloat(element.slice(
+                        0, indexOfDecimal - element.length + precision + 1)
+                        );
+                        separated[separated.length - i - 1] = element;
+                    }
+                    equation = separated.join(' ');
+                }
+            }
+        }
 
     if (invalid_Syntax && equation != '0') {
         document.getElementById('calculator_input').value = oldVal;

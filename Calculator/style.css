@@ -94,6 +94,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-y: hidden; /* Hides vertical scrollbar */
     height: 100vh;
     min-width: 450px;
     min-height: 550px;
